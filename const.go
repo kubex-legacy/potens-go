@@ -1,4 +1,4 @@
 package potens
 
-const KubexDefaultDomain = "kubex.io"
+const KubexProductionDomain = "kubex.io"
 const KubexDefaultGRPCPort = 50051

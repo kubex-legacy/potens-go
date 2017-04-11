@@ -30,7 +30,7 @@ func NewApplication(name string) (*Application) {
 		Name:        name,
 		IP:          net.IPv4(127, 0, 0, 1),
 		Port:        KubexDefaultGRPCPort,
-		kubexDomain: KubexDefaultDomain,
+		kubexDomain: KubexProductionDomain,
 	}
 
 	app.instanceID = uuid.NewV4().String()
@@ -43,7 +43,7 @@ func NewApplication(name string) (*Application) {
 		app.kubexDomain = kubexDomain
 	}
 
-	if app.kubexDomain != KubexDefaultDomain {
+	if app.kubexDomain != KubexProductionDomain {
 		app.logger, err = zap.NewDevelopment()
 	} else {
 		app.logger, err = zap.NewProduction()
@@ -74,6 +74,16 @@ func (app *Application) InstanceID() string {
 //PortString returns the port as a string
 func (app *Application) PortString() string {
 	return strconv.FormatInt(int64(app.Port), 10)
+}
+
+//KubexDomain returns the kubex domain being used
+func (app *Application) KubexDomain() string {
+	return app.kubexDomain
+}
+
+//IsProduction returns if you are in production environment
+func (app *Application) IsProduction() bool {
+	return app.kubexDomain == KubexProductionDomain
 }
 
 //Log returns a logger to log against
