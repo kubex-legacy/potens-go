@@ -57,9 +57,9 @@ func NewApplication(name string) (*Application) {
 	if osPort != "" {
 		intPort, err := strconv.ParseInt(osPort, 10, 32)
 		if err != nil {
-			app.Port = int(intPort)
-		} else {
 			log.Print("Unable to use ", osPort, " as the listen port for ", name)
+		} else {
+			app.Port = int(intPort)
 		}
 	}
 
