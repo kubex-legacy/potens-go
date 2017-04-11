@@ -4,24 +4,14 @@ import (
 	"log"
 	"net"
 	"os"
+	"path"
+	"path/filepath"
 	"strconv"
 	"strings"
 
 	"github.com/satori/go.uuid"
 	"go.uber.org/zap"
 )
-
-type Application struct {
-	Name        string
-	ServiceName string
-	Port        int
-	IP          net.IP
-
-	instanceID  string
-	kubexDomain string
-
-	logger *zap.Logger
-}
 
 //NewApplication creates an instance of your application, name will be converted to upper and _
 func NewApplication(name string) (*Application) {
@@ -36,7 +26,7 @@ func NewApplication(name string) (*Application) {
 	app.instanceID = uuid.NewV4().String()
 
 	app.ServiceName = strings.ToUpper(name)
-	app.ServiceName = strings.Replace(app.ServiceName, " ", "_", -1)
+	app.ServiceName = strings.Replace(strings.Replace(app.ServiceName, "-", "_", -1), " ", "_", -1)
 
 	kubexDomain := os.Getenv("KUBEX_DOMAIN")
 	if kubexDomain != "" {
@@ -66,27 +56,10 @@ func NewApplication(name string) (*Application) {
 	return app
 }
 
-//InstanceID returns the instance ID for this session
-func (app *Application) InstanceID() string {
-	return app.instanceID
-}
-
-//PortString returns the port as a string
-func (app *Application) PortString() string {
-	return strconv.FormatInt(int64(app.Port), 10)
-}
-
-//KubexDomain returns the kubex domain being used
-func (app *Application) KubexDomain() string {
-	return app.kubexDomain
-}
-
-//IsProduction returns if you are in production environment
-func (app *Application) IsProduction() bool {
-	return app.kubexDomain == KubexProductionDomain
-}
-
-//Log returns a logger to log against
-func (app *Application) Log() *zap.Logger {
-	return app.logger
+func (app *Application) relPath(file string) string {
+	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
+	if err != nil {
+		app.Log().Fatal(err.Error())
+	}
+	return path.Join(dir, file)
 }
