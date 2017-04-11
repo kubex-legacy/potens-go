@@ -71,6 +71,11 @@ func (app *Application) InstanceID() string {
 	return app.instanceID
 }
 
+//PortString returns the port as a string
+func (app *Application) PortString() string {
+	return strconv.FormatInt(int64(app.Port), 10)
+}
+
 //Log returns a logger to log against
 func (app *Application) Log() *zap.Logger {
 	return app.logger
