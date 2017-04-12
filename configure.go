@@ -53,7 +53,7 @@ func (app *Application) SetDefinition(def *definition.AppDefinition) error {
 		}
 	}
 
-	if len(def.Vendor) < 2 {
+	if len(def.VendorID) < 2 {
 		return errors.New("The Vendor ID specified in your definition file is invalid")
 	}
 
@@ -61,7 +61,7 @@ func (app *Application) SetDefinition(def *definition.AppDefinition) error {
 		return errors.New("The App ID specified in your definition file is invalid")
 	}
 
-	if !app.canBecomeGlobalAppID(def.GlobalAppID) {
+	if !app.canBecomeGlobalAppID(def.GlobalAppID()) {
 		return errors.New("The App ID specified in your definition does not match your identity")
 	}
 
@@ -75,7 +75,7 @@ func (app *Application) canBecomeGlobalAppID(globalAppID string) bool {
 	}
 
 	if app.definition != nil {
-		return app.definition.GlobalAppID == globalAppID
+		return app.definition.GlobalAppID() == globalAppID
 	}
 
 	return true
