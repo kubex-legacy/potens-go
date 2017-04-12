@@ -6,18 +6,21 @@ import (
 
 func quick() {
 	app := potens.QuickStartApp("Quick Service", nil, nil)
-	app.Log().Info("Started Application")
+	run(app)
 }
 
 func main() {
-	var err error
 	app := potens.NewApplication("Example Service")
 
-	err = app.SetIdentity(nil)
-	app.FatalErr(err)
+	app.FatalErr(app.SetIdentity(nil))
+	app.FatalErr(app.SetDefinition(nil))
+	app.FatalErr(app.GetCertificate())
+	app.FatalErr(app.CreateServer())
 
-	err = app.SetDefinition(nil)
-	app.FatalErr(err)
+	run(app)
+}
 
-	app.RegisterWithDiscovery()
+func run(app *potens.Application) {
+	app.Log().Info("Ready to serve")
+	app.FatalErr(app.Serve())
 }

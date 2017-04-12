@@ -7,6 +7,7 @@ import (
 	"github.com/kubex/potens-go/definition"
 	"github.com/kubex/potens-go/identity"
 	"go.uber.org/zap"
+	"google.golang.org/grpc"
 )
 
 type Application struct {
@@ -28,6 +29,14 @@ type Application struct {
 
 	/** Utility **/
 	logger *zap.Logger
+
+	/** Security **/
+	imperiumCertificate []byte
+	imperiumKey         []byte
+	hostname            string
+
+	/** gRPC **/
+	server *grpc.Server
 }
 
 func (app *Application) FatalErr(err error) {
