@@ -13,7 +13,7 @@ config_version: 1.0
 version: 1.0
 
 #Your vendor ID
-vendor: vendor-id
+vendor_id: vendor-id
 
 #ID of your app
 app_id: app-id

@@ -18,4 +18,6 @@ func main() {
 
 	err = app.SetDefinition(nil)
 	app.FatalErr(err)
+
+	app.RegisterWithDiscovery()
 }

@@ -36,6 +36,21 @@ func (app *Application) FatalErr(err error) {
 	}
 }
 
+//GlobalAppID returns the global app ID for the application
+func (app *Application) GlobalAppID() string {
+	return app.definition.GlobalAppID()
+}
+
+//VendorID returns the vendor ID for this application
+func (app *Application) VendorID() string {
+	return app.definition.VendorID
+}
+
+//AppID returns the app ID for this application
+func (app *Application) AppID() string {
+	return app.definition.AppID
+}
+
 //InstanceID returns the instance ID for this session
 func (app *Application) InstanceID() string {
 	return app.instanceID

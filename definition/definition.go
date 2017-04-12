@@ -13,10 +13,9 @@ type AppDefinition struct {
 	Type                      AppType
 	ConfigVersion             float32 `yaml:"config_version"`
 	Version                   float32
-	Vendor                    string
+	VendorID                  string
 	TrustedVendor             bool
 	AppID                     string `yaml:"app_id"`
-	GlobalAppID               string
 	GroupID                   string `yaml:"group_id"`
 	Category                  string
 	Priority                  int32
@@ -211,7 +210,7 @@ func (role *AppRole) VendorID(appDef *AppDefinition) string {
 		return roleSplit[0]
 	}
 
-	return appDef.Vendor
+	return appDef.VendorID
 }
 
 // AppID Retrieves the application ID for this role, empty for a global role
@@ -234,7 +233,7 @@ func (role *AppRole) IsBuiltIn() bool {
 
 // IsSameVendor returns true if the vendor for the role matches the vendor in the provided definition
 func (role *AppRole) IsSameVendor(appDef *AppDefinition) bool {
-	return role.VendorID(appDef) == appDef.Vendor
+	return role.VendorID(appDef) == appDef.VendorID
 }
 
 // AppPermissionMode Permission Request
@@ -357,10 +356,12 @@ func (d *AppDefinition) FromConfig(yamlFile string) error {
 	return d.FromYamlString(string(yamlContent))
 }
 
+//GlobalAppID returns the global app ID for the definition
+func (d *AppDefinition) GlobalAppID() string {
+	return d.VendorID + "/" + d.AppID
+}
+
 func (d *AppDefinition) FromYamlString(yamlContent string) error {
 	err := yaml.Unmarshal([]byte(yamlContent), d)
-	if err == nil {
-		d.GlobalAppID = d.Vendor + "/" + d.AppID
-	}
 	return err
 }
