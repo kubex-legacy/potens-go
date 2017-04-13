@@ -1,10 +1,23 @@
 hash: 1f7495f503f50a8ac2e157476a8db44e4dadda39ecc34a2531964c07e728472f
-updated: 2017-04-11T15:23:23.099753391+01:00
+updated: 2017-04-12T08:59:47.494137469+01:00
 imports:
+- name: github.com/cubex/portcullis-go
+  version: 9e70d5267f7cee48865d3be3dc652423085a1f15
+  subpackages:
+  - keys
+- name: github.com/golang/protobuf
+  version: 2bba0603135d7d7f5cb73b2125beeda19c09f4ef
+  subpackages:
+  - proto
+  - ptypes/timestamp
+- name: github.com/kubex/proto-go
+  version: 08d24f79d6a9eac96761ef0ace7c126c02a321dd
+  subpackages:
+  - imperium
 - name: github.com/opentracing/opentracing-go
   version: 6edb48674bd9467b8e91fda004f2bd7202d60ce4
-  subpackages:
-  - log
+- name: github.com/satori/go.uuid
+  version: 5bf94b69c6b68ee1b541973bb8e1144db23a194b
 - name: go.uber.org/atomic
   version: 3b8db5e93c4c02efbc313e17b2e796b0914a01fb
 - name: go.uber.org/zap
@@ -17,7 +30,28 @@ imports:
   - internal/multierror
   - zapcore
 - name: golang.org/x/net
-  version: d1e1b351919c6738fdeb9893d5c998b161464f0c
+  version: a333c534c871727fb95745870e8b98a69447f2ce
   subpackages:
   - context
+  - http2
+  - http2/hpack
+  - idna
+  - internal/timeseries
+  - lex/httplex
+  - trace
+- name: google.golang.org/grpc
+  version: 708a7f9f3283aa2d4f6132d287d78683babe55c8
+  subpackages:
+  - codes
+  - credentials
+  - grpclog
+  - internal
+  - metadata
+  - naming
+  - peer
+  - stats
+  - tap
+  - transport
+- name: gopkg.in/yaml.v2
+  version: 53feefa2559fb8dfa8d81baad31be332c97d6c77
 testImports: []

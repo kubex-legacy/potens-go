@@ -4,6 +4,8 @@ import (
 	"crypto/tls"
 	"errors"
 	"net"
+	"os"
+	"strings"
 
 	"github.com/cubex/portcullis-go/keys"
 	"golang.org/x/net/context"
@@ -46,4 +48,19 @@ func (app *Application) Serve() error {
 	}
 
 	return app.server.Serve(lis)
+}
+
+func (app *Application) GetServiceConnection(service string) (*grpc.ClientConn, error) {
+	location := os.Getenv(app.ServiceKey() + envServiceLocationSuffix)
+
+	kubexServiceDomain := os.Getenv(envKubexServiceDomain)
+	if kubexServiceDomain == "" {
+		kubexServiceDomain = KubexProductionServicesDomain
+	}
+
+	if location == "" {
+		location = strings.ToLower(service) + "." + kubexServiceDomain
+	}
+
+	return grpc.Dial(location, grpc.WithTransportCredentials(credentials.NewClientTLSFromCert(nil, "")))
 }

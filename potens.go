@@ -7,8 +7,6 @@ import (
 	"path"
 	"path/filepath"
 	"strconv"
-	"strings"
-
 	"github.com/satori/go.uuid"
 	"go.uber.org/zap"
 )
@@ -17,6 +15,7 @@ import (
 func NewApplication(name string) (*Application) {
 	var err error
 	app := &Application{
+		services:    &services{},
 		Name:        name,
 		IP:          net.IPv4(127, 0, 0, 1),
 		Port:        KubexDefaultGRPCPort,
@@ -25,10 +24,7 @@ func NewApplication(name string) (*Application) {
 
 	app.instanceID = uuid.NewV4().String()
 
-	app.ServiceName = strings.ToUpper(name)
-	app.ServiceName = strings.Replace(strings.Replace(app.ServiceName, "-", "_", -1), " ", "_", -1)
-
-	kubexDomain := os.Getenv("KUBEX_DOMAIN")
+	kubexDomain := os.Getenv(envKubexDomain)
 	if kubexDomain != "" {
 		app.kubexDomain = kubexDomain
 	}
@@ -43,7 +39,7 @@ func NewApplication(name string) (*Application) {
 		log.Fatal(err)
 	}
 
-	osPort := os.Getenv(app.ServiceName + "_LISTEN_PORT")
+	osPort := os.Getenv(app.ServiceKey() + envListenPortSuffix)
 	if osPort != "" {
 		intPort, err := strconv.ParseInt(osPort, 10, 32)
 		if err != nil {

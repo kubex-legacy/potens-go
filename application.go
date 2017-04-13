@@ -3,24 +3,29 @@ package potens
 import (
 	"crypto/rsa"
 	"net"
+	"regexp"
 	"strconv"
+	"strings"
+
 	"github.com/kubex/potens-go/definition"
 	"github.com/kubex/potens-go/identity"
+	"github.com/kubex/proto-go/discovery"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
 )
 
 type Application struct {
 	/** RunTime **/
-	Port        int
-	IP          net.IP
-	instanceID  string
-	kubexDomain string
+	Port          int
+	IP            net.IP
+	instanceID    string
+	kubexDomain   string
+	currentStatus discovery.ServiceStatus
 
 	/** Definition **/
-	ServiceName string
-	Name        string
-	definition  *definition.AppDefinition
+	Name       string
+	definition *definition.AppDefinition
+	appVersion discovery.AppVersion
 
 	/** Identity **/
 	identity *identity.AppIdentity
@@ -36,7 +41,8 @@ type Application struct {
 	hostname            string
 
 	/** gRPC **/
-	server *grpc.Server
+	server   *grpc.Server
+	services *services
 }
 
 func (app *Application) FatalErr(err error) {
@@ -83,4 +89,9 @@ func (app *Application) IsProduction() bool {
 //Log returns a logger to log against
 func (app *Application) Log() *zap.Logger {
 	return app.logger
+}
+
+//ServiceKey returns a key that can be used to pre-fix environment variables
+func (app *Application) ServiceKey() string {
+	return strings.ToUpper(regexp.MustCompile("[^A-Za-z0-9]").ReplaceAllString(app.Name, ""))
 }
