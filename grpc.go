@@ -5,6 +5,7 @@ import (
 	"errors"
 	"net"
 	"os"
+	"strconv"
 	"strings"
 
 	"github.com/cubex/portcullis-go/keys"
@@ -51,7 +52,7 @@ func (app *Application) Serve() error {
 }
 
 func (app *Application) GetServiceConnection(service string) (*grpc.ClientConn, error) {
-	location := os.Getenv(app.ServiceKey() + envServiceLocationSuffix)
+	location := os.Getenv(strings.ToUpper(service) + envServiceLocationSuffix)
 
 	kubexServiceDomain := os.Getenv(envKubexServiceDomain)
 	if kubexServiceDomain == "" {
@@ -60,6 +61,7 @@ func (app *Application) GetServiceConnection(service string) (*grpc.ClientConn, 
 
 	if location == "" {
 		location = strings.ToLower(service) + "." + kubexServiceDomain
+		location += ":" + strconv.FormatInt(int64(KubexDefaultGRPCPort), 10)
 	}
 
 	return grpc.Dial(location, grpc.WithTransportCredentials(credentials.NewClientTLSFromCert(nil, "")))
