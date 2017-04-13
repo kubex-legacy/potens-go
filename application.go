@@ -93,5 +93,5 @@ func (app *Application) Log() *zap.Logger {
 
 //ServiceKey returns a key that can be used to pre-fix environment variables
 func (app *Application) ServiceKey() string {
-	return strings.ToUpper(regexp.MustCompile("[^A-Za-z0-9]").ReplaceAllString(app.Name, ""))
+	return strings.ToUpper(strings.Replace(regexp.MustCompile("[^A-Za-z0-9\\-_]").ReplaceAllString(app.Name, ""), "-", "_", -1))
 }
