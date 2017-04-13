@@ -29,7 +29,7 @@ func (app *Application) RegisterWithDiscovery() error {
 		return err
 	}
 
-	version := os.Getenv(app.ServiceKey() + envServiceVersionSuffix)
+	version := os.Getenv(app.ServiceKey() + EnvServiceVersionSuffix)
 	app.appVersion = discovery.AppVersion_STABLE
 	if version != "" {
 		v, ok := discovery.AppVersion_value[version]

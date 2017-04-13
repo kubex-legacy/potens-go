@@ -24,7 +24,7 @@ func NewApplication(name string) (*Application) {
 
 	app.instanceID = uuid.NewV4().String()
 
-	kubexDomain := os.Getenv(envKubexDomain)
+	kubexDomain := os.Getenv(EnvKubexDomain)
 	if kubexDomain != "" {
 		app.kubexDomain = kubexDomain
 	}
@@ -39,7 +39,7 @@ func NewApplication(name string) (*Application) {
 		log.Fatal(err)
 	}
 
-	osPort := os.Getenv(app.ServiceKey() + envListenPortSuffix)
+	osPort := os.Getenv(app.ServiceKey() + EnvListenPortSuffix)
 	if osPort != "" {
 		intPort, err := strconv.ParseInt(osPort, 10, 32)
 		if err != nil {

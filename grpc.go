@@ -57,9 +57,9 @@ func (app *Application) Serve() error {
 }
 
 func (app *Application) GetServiceConnection(service string) (*grpc.ClientConn, error) {
-	location := os.Getenv(strings.ToUpper(service) + envServiceLocationSuffix)
+	location := os.Getenv(strings.ToUpper(service) + EnvServiceLocationSuffix)
 
-	kubexServiceDomain := os.Getenv(envKubexServiceDomain)
+	kubexServiceDomain := os.Getenv(EnvKubexServiceDomain)
 	if kubexServiceDomain == "" {
 		kubexServiceDomain = KubexProductionServicesDomain
 	}

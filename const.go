@@ -8,8 +8,8 @@ const KubexDefaultGRPCPort = 50051
 const imperiumServiceName = "imperium"
 const discoveryServiceName = "discovery"
 
-const envKubexDomain = "KUBEX_DOMAIN"
-const envKubexServiceDomain = "KUBEX_SERVICE_DOMAIN"
-const envServiceLocationSuffix = "_SERVICE_LOCATION"
-const envServiceVersionSuffix = "_SERVICE_VERSION"
-const envListenPortSuffix = "_LISTEN_PORT"
+const EnvKubexDomain = "KUBEX_DOMAIN"
+const EnvKubexServiceDomain = "KUBEX_SERVICE_DOMAIN"
+const EnvServiceLocationSuffix = "_SERVICE_LOCATION"
+const EnvServiceVersionSuffix = "_SERVICE_VERSION"
+const EnvListenPortSuffix = "_LISTEN_PORT"
