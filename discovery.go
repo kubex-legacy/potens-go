@@ -62,6 +62,7 @@ func (app *Application) discoveryHeartBeat() {
 		if app.currentStatus != discovery.ServiceStatus_ONLINE {
 			return
 		}
+		app.Log().Debug("Sending heartbeat to discovery")
 		app.services.discoveryClient.HeartBeat(app.GetGrpcContext(), &discovery.HeartBeatRequest{
 			AppId:        app.GlobalAppID(),
 			InstanceUuid: app.instanceID,
