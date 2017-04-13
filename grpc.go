@@ -27,6 +27,13 @@ func (app *Application) GetGrpcContext() context.Context {
 // CreateServer creates a gRPC server with your tls certificates
 func (app *Application) CreateServer() error {
 
+	app.server = grpc.NewServer()
+
+	//Do not secure with imperium for initial development
+	if true {
+		return nil
+	}
+
 	if app.imperiumKey == nil || app.imperiumCertificate == nil || app.hostname == "" {
 		return errors.New("CreateServer called before GetCertificate, or GetCertificate call failed")
 	}
@@ -69,5 +76,6 @@ func (app *Application) GetServiceConnection(service string) (*grpc.ClientConn, 
 		location += ":" + strconv.FormatInt(int64(KubexDefaultGRPCPort), 10)
 	}
 
-	return grpc.Dial(location, grpc.WithTransportCredentials(credentials.NewClientTLSFromCert(nil, "")))
+	return grpc.Dial(location, grpc.WithInsecure())
+	//return grpc.Dial(location, grpc.WithTransportCredentials(credentials.NewClientTLSFromCert(nil, "")))
 }
