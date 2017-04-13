@@ -3,16 +3,11 @@ package potens
 import (
 	"github.com/kubex/proto-go/imperium"
 	"go.uber.org/zap"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials"
 )
 
 func (app *Application) GetCertificate() error {
 
-	imperiumService, err := app.getCoreService(imperiumAppID)
-	app.FatalErr(err)
-
-	imperiumConnection, err := grpc.Dial(imperiumService.Host, grpc.WithTransportCredentials(credentials.NewClientTLSFromCert(nil, "")))
+	imperiumConnection, err := app.GetServiceConnection(imperiumServiceName)
 	if err != nil {
 		return err
 	}
