@@ -54,8 +54,7 @@ func (app *Application) GetServer() *grpc.Server {
 }
 
 func (app *Application) Serve() error {
-
-	lis, err := net.Listen("tcp", app.hostname+":"+app.PortString())
+	lis, err := net.Listen("tcp", ":"+app.PortString())
 	if err != nil {
 		return err
 	}
