@@ -16,11 +16,14 @@ func main() {
 	app.FatalErr(app.SetDefinition(nil))
 	app.FatalErr(app.GetCertificate())
 	app.FatalErr(app.CreateServer())
-
 	run(app)
 }
 
 func run(app *potens.Application) {
 	app.Log().Info("Ready to serve")
-	app.FatalErr(app.Serve())
+	app.FatalErr(app.RegisterWithDiscovery())
+	app.FatalErr(app.DiscoveryOnline())
+	err := app.Serve()
+	app.FatalErr(app.DiscoveryOffline())
+	app.FatalErr(err)
 }
