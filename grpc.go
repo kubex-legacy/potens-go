@@ -71,6 +71,12 @@ func (app *Application) GetServiceConnection(service string) (*grpc.ClientConn, 
 		kubexServiceDomain = KubexProductionServicesDomain
 	}
 
+	serviceHost := os.Getenv(strings.ToUpper(service) + "_SERVICE_HOST")
+	servicePort := os.Getenv(strings.ToUpper(service) + "_SERVICE_PORT")
+	if serviceHost+servicePort != "" {
+		location = serviceHost + ":" + servicePort
+	}
+
 	if location == "" {
 		location = strings.ToLower(service) + "." + kubexServiceDomain
 		location += ":" + strconv.FormatInt(int64(KubexDefaultGRPCPort), 10)
