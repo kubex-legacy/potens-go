@@ -1,27 +1,28 @@
-hash: 1f7495f503f50a8ac2e157476a8db44e4dadda39ecc34a2531964c07e728472f
-updated: 2017-04-12T08:59:47.494137469+01:00
+hash: 1f2e2ff536fd62b9ccc2b07ef0d889014b584fe252ab5c3edd698f5534ef649d
+updated: 2017-04-18T15:23:47.63628418+01:00
 imports:
 - name: github.com/cubex/portcullis-go
   version: 9e70d5267f7cee48865d3be3dc652423085a1f15
   subpackages:
   - keys
 - name: github.com/golang/protobuf
-  version: 2bba0603135d7d7f5cb73b2125beeda19c09f4ef
+  version: 1f49d83d9aa00e6ce4fc8258c71cc7786aec968a
   subpackages:
   - proto
   - ptypes/timestamp
 - name: github.com/kubex/proto-go
-  version: 08d24f79d6a9eac96761ef0ace7c126c02a321dd
+  version: a11eb2f613366e1d876f31ceae9fdeb4da2f6abe
   subpackages:
+  - discovery
   - imperium
 - name: github.com/opentracing/opentracing-go
   version: 6edb48674bd9467b8e91fda004f2bd7202d60ce4
 - name: github.com/satori/go.uuid
-  version: 5bf94b69c6b68ee1b541973bb8e1144db23a194b
+  version: 879c5887cd475cd7864858769793b2ceb0d44feb
 - name: go.uber.org/atomic
-  version: 3b8db5e93c4c02efbc313e17b2e796b0914a01fb
+  version: 4e336646b2ef9fc6e47be8e21594178f98e5ebcf
 - name: go.uber.org/zap
-  version: a2773be06b9ac7c318a3a105b5c310af5730c6b4
+  version: 1550bc05539134bbf8612a35f34a79ab8bf34ee3
   subpackages:
   - buffer
   - internal/bufferpool
@@ -30,12 +31,11 @@ imports:
   - internal/multierror
   - zapcore
 - name: golang.org/x/net
-  version: a333c534c871727fb95745870e8b98a69447f2ce
+  version: 9313baa13d9262e49d07b20ed57dceafcd7240cc
   subpackages:
   - context
   - http2
   - http2/hpack
-  - idna
   - internal/timeseries
   - lex/httplex
   - trace
@@ -53,5 +53,5 @@ imports:
   - tap
   - transport
 - name: gopkg.in/yaml.v2
-  version: 53feefa2559fb8dfa8d81baad31be332c97d6c77
+  version: cd8b52f8269e0feb286dfeef29f8fe4d5b397e0b
 testImports: []
