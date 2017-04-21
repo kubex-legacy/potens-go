@@ -9,7 +9,7 @@ import (
 
 func TestReadYaml(t *testing.T) {
 	def := definition.AppDefinition{}
-	err := def.FromConfig("../app-definition.dist.yaml")
+	err := def.FromConfig("app-definition.dist.yaml")
 	if err != nil {
 		t.Fatal(err)
 	}
