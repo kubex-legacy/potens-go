@@ -70,7 +70,7 @@ func (app *Application) GetServiceConnection(service string) (*grpc.ClientConn, 
 		kubexServiceDomain = KubexProductionServicesDomain
 	}
 
-	location = app.GetServiceEnvLocation(service)
+	location = app.GetServiceEnvLocation("", service)
 
 	if location == "" {
 		location = strings.ToLower(service) + "." + kubexServiceDomain
@@ -81,11 +81,12 @@ func (app *Application) GetServiceConnection(service string) (*grpc.ClientConn, 
 	//return grpc.Dial(location, grpc.WithTransportCredentials(credentials.NewClientTLSFromCert(nil, "")))
 }
 
-func (app *Application) GetServiceEnvLocation(service string) string {
-	serviceHost := os.Getenv(strings.ToUpper(service) + EnvServiceHostSuffix)
-	servicePort := os.Getenv(strings.ToUpper(service) + EnvServicePortSuffix)
+func (app *Application) GetServiceEnvLocation(prefix string, service string) string {
+	serviceHost := os.Getenv(strings.ToUpper(prefix+service) + EnvServiceHostSuffix)
+	servicePort := os.Getenv(strings.ToUpper(prefix+service) + EnvServicePortSuffix)
 	if serviceHost+servicePort != "" {
 		return serviceHost + ":" + servicePort
 	}
+
 	return ""
 }
