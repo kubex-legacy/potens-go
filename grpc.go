@@ -87,5 +87,5 @@ func (app *Application) GetServiceEnvLocation(service string) string {
 	if serviceHost+servicePort != "" {
 		return serviceHost + ":" + servicePort
 	}
-	return nil
+	return ""
 }
