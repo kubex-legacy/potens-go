@@ -13,6 +13,28 @@ import (
 
 //NewApplication creates an instance of your application, name will be converted to upper and _
 func NewApplication(name string) (*Application) {
+	app := makeApp(name)
+
+	osPort := os.Getenv("APP_" + app.ServiceKey() + EnvListenPortSuffix)
+	if osPort != "" {
+		intPort, err := strconv.ParseInt(osPort, 10, 32)
+		if err != nil {
+			log.Print("Unable to use ", osPort, " as the listen port for ", name)
+		} else {
+			app.Port = int(intPort)
+		}
+	}
+
+	return app
+}
+
+//NewService create a new instance of a service, this is usually not required
+func NewService(name string) (*Application) {
+	app := makeApp(name)
+	return app
+}
+
+func makeApp(name string) (*Application) {
 	var err error
 	app := &Application{
 		services:      &serviceCache{},
