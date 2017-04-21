@@ -3,6 +3,7 @@ package potens
 import (
 	"errors"
 	"os"
+	"strconv"
 	"time"
 
 	"github.com/kubex/potens-go/services"
@@ -24,7 +25,7 @@ func (app *Application) connectToDiscovery() error {
 	return nil
 }
 
-func (app *Application) RegisterWithDiscovery(hostname string, port int32) error {
+func (app *Application) RegisterWithDiscovery(hostname string, port string) error {
 	err := app.connectToDiscovery()
 	if err != nil {
 		return err
@@ -39,12 +40,14 @@ func (app *Application) RegisterWithDiscovery(hostname string, port int32) error
 		}
 	}
 
+	portInt, _ := strconv.ParseInt(port, 10, 32)
+
 	regResult, err := app.services.discoveryClient.Register(app.GetGrpcContext(), &discovery.RegisterRequest{
 		AppId:        app.GlobalAppID(),
 		InstanceUuid: app.instanceID,
 		ServiceHost:  hostname,
 		Version:      app.appVersion,
-		ServicePort:  port,
+		ServicePort:  int32(portInt),
 	})
 	if err != nil {
 		return err
