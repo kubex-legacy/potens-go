@@ -15,7 +15,10 @@ func (app *Application) SetIdentity(ident *identity.AppIdentity) error {
 		ident = &identity.AppIdentity{}
 		err := ident.FromJSONFile(app.relPath("app-identity.json"))
 		if err != nil {
-			return err
+			err = ident.FromJSONFile(app.relPath("_kubex/app-identity.json"))
+			if err != nil {
+				return err
+			}
 		}
 	}
 
@@ -49,7 +52,10 @@ func (app *Application) SetDefinition(def *definition.AppDefinition) error {
 		def = &definition.AppDefinition{}
 		err := def.FromConfig(app.relPath("app-definition.yaml"))
 		if err != nil {
-			return err
+			err = def.FromConfig(app.relPath("_kubex/app-definition.yaml"))
+			if err != nil {
+				return err
+			}
 		}
 	}
 
