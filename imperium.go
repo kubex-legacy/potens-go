@@ -1,13 +1,14 @@
 package potens
 
 import (
+	"github.com/kubex/potens-go/services"
 	"github.com/kubex/proto-go/imperium"
 	"go.uber.org/zap"
 )
 
 func (app *Application) GetCertificate() error {
 
-	imperiumConnection, err := app.GetServiceConnection(imperiumServiceName)
+	imperiumConnection, err := app.GetServiceConnection(services.Imperium().Key())
 	if err != nil {
 		return err
 	}

@@ -19,7 +19,7 @@ type Application struct {
 	Port          int
 	IP            net.IP
 	instanceID    string
-	kubexDomain   string
+	consoleDomain string
 	currentStatus discovery.ServiceStatus
 
 	/** Definition **/
@@ -42,7 +42,11 @@ type Application struct {
 
 	/** gRPC **/
 	server   *grpc.Server
-	services *services
+	services *serviceCache
+}
+
+type serviceCache struct {
+	discoveryClient discovery.DiscoveryClient
 }
 
 func (app *Application) FatalErr(err error) {
@@ -76,14 +80,14 @@ func (app *Application) PortString() string {
 	return strconv.FormatInt(int64(app.Port), 10)
 }
 
-//KubexDomain returns the kubex domain being used
-func (app *Application) KubexDomain() string {
-	return app.kubexDomain
+//ConsoleDomain returns the kubex console domain being used
+func (app *Application) ConsoleDomain() string {
+	return app.consoleDomain
 }
 
 //IsProduction returns if you are in production environment
 func (app *Application) IsProduction() bool {
-	return app.kubexDomain == KubexProductionDomain
+	return app.consoleDomain == KubexProductionConsoleDomain
 }
 
 //Log returns a logger to log against

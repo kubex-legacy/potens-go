@@ -5,6 +5,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/kubex/potens-go/services"
 	"github.com/kubex/proto-go/discovery"
 )
 
@@ -14,7 +15,7 @@ var ErrDiscoveryFailedToGoOffline = errors.New("Unable to take application offli
 
 func (app *Application) connectToDiscovery() error {
 	if app.services.discoveryClient == nil {
-		discoveryConn, err := app.GetServiceConnection(discoveryServiceName)
+		discoveryConn, err := app.GetServiceConnection(services.Discovery().Key())
 		if err != nil {
 			return err
 		}

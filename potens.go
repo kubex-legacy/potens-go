@@ -15,21 +15,21 @@ import (
 func NewApplication(name string) (*Application) {
 	var err error
 	app := &Application{
-		services:    &services{},
-		Name:        name,
-		IP:          net.IPv4(127, 0, 0, 1),
-		Port:        KubexDefaultGRPCPort,
-		kubexDomain: KubexProductionDomain,
+		services:      &serviceCache{},
+		Name:          name,
+		IP:            net.IPv4(127, 0, 0, 1),
+		Port:          KubexDefaultGRPCPort,
+		consoleDomain: KubexProductionConsoleDomain,
 	}
 
 	app.instanceID = uuid.NewV4().String()
 
-	kubexDomain := os.Getenv(EnvKubexDomain)
+	kubexDomain := os.Getenv(EnvKubexConsoleDomain)
 	if kubexDomain != "" {
-		app.kubexDomain = kubexDomain
+		app.consoleDomain = kubexDomain
 	}
 
-	if app.kubexDomain != KubexProductionDomain {
+	if app.consoleDomain != KubexProductionConsoleDomain {
 		app.logger, err = zap.NewDevelopment()
 	} else {
 		app.logger, err = zap.NewProduction()

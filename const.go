@@ -1,14 +1,11 @@
 package potens
 
-const KubexProductionDomain = "kubex.io"
 const KubexProductionServicesDomain = "kubex.services"
+const KubexProductionConsoleDomain = "kubex.cloud"
 const KubexVendorID = "kubex"
 const KubexDefaultGRPCPort = 50051
 
-const imperiumServiceName = "imperium"
-const discoveryServiceName = "discovery"
-
-const EnvKubexDomain = "KUBEX_DOMAIN"
+const EnvKubexConsoleDomain = "KUBEX_CONSOLE_DOMAIN"
 const EnvKubexServiceDomain = "KUBEX_SERVICE_DOMAIN"
 const EnvServiceLocationSuffix = "_SERVICE_LOCATION"
 const EnvServiceVersionSuffix = "_SERVICE_VERSION"
