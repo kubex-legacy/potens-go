@@ -7,3 +7,7 @@ func Discovery() Service {
 func Imperium() Service {
 	return Service{key: "imperium"}
 }
+
+func Socket() Service {
+	return Service{key: "socket"}
+}

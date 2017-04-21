@@ -47,6 +47,7 @@ type Application struct {
 
 type serviceCache struct {
 	discoveryClient discovery.DiscoveryClient
+	socketHandler   *socketHandler
 }
 
 func (app *Application) FatalErr(err error) {
