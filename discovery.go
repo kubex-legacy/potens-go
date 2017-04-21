@@ -24,7 +24,7 @@ func (app *Application) connectToDiscovery() error {
 	return nil
 }
 
-func (app *Application) RegisterWithDiscovery() error {
+func (app *Application) RegisterWithDiscovery(hostname string, port int32) error {
 	err := app.connectToDiscovery()
 	if err != nil {
 		return err
@@ -42,9 +42,9 @@ func (app *Application) RegisterWithDiscovery() error {
 	regResult, err := app.services.discoveryClient.Register(app.GetGrpcContext(), &discovery.RegisterRequest{
 		AppId:        app.GlobalAppID(),
 		InstanceUuid: app.instanceID,
-		ServiceHost:  app.hostname,
+		ServiceHost:  hostname,
 		Version:      app.appVersion,
-		ServicePort:  int32(app.Port),
+		ServicePort:  port,
 	})
 	if err != nil {
 		return err
