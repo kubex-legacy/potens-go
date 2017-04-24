@@ -20,8 +20,8 @@ func Registry() Service {
 	return Service{key: "registry"}
 }
 
-func App() Service {
-	return Service{key: "app"}
+func Apps() Service {
+	return Service{key: "apps"}
 }
 
 func Vendor() Service {
