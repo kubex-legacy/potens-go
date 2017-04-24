@@ -15,3 +15,7 @@ func Socket() Service {
 func Project() Service {
 	return Service{key: "project"}
 }
+
+func Registry() Service {
+	return Service{key: "registry"}
+}
