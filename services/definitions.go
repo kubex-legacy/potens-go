@@ -19,3 +19,31 @@ func Project() Service {
 func Registry() Service {
 	return Service{key: "registry"}
 }
+
+func App() Service {
+	return Service{key: "app"}
+}
+
+func Vendor() Service {
+	return Service{key: "vendor"}
+}
+
+func Schema() Service {
+	return Service{key: "schema"}
+}
+
+func Preference() Service {
+	return Service{key: "preference"}
+}
+
+func Notify() Service {
+	return Service{key: "notify"}
+}
+
+func Impart() Service {
+	return Service{key: "impart"}
+}
+
+func Config() Service {
+	return Service{key: "config"}
+}
