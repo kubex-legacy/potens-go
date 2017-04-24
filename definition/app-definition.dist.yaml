@@ -2,7 +2,9 @@
 # SAMPLE DEFINITION FILE #
 ##########################
 
-type: cubex.platform.application
+type: kubex.platform.application.project
+ui_mode: full
+
 config_version: 1.0
 
 #######################
@@ -72,14 +74,7 @@ navigation:
 #######################
 
 entities:
-  #Key for your app
-  app_key: CU
-
-  #Your Vendor Key
-  vendor_key: FRT
-
-  #Type (2 Char) - Unique Type for this application
-  CS:
+  - id: customer
     #Name of the entity
     name:
       en: Customer
@@ -92,38 +87,13 @@ entities:
     description:
       en: Purpose of this entity type
       fr: But de ce type d'entité
-    #Place {fid} for fid replacement within path
-    #(optional)Relative path within your app to handle the view of this entity
-    path: view/{fid}
     edges:
       - id: friend-of
         bi_direction: true
         label: "%s is a friend of %s"
-        restricted: true
-        restrictions:
-          - vendor_key: PE
-            app_key: RS
-            type: ON
         meta:
           - where-met
           - found-by
-
-#######################
-#    Event Listener   #
-#######################
-
-listener:
-  #set to false to stop receiving organisation events
-  enabled: true
-
-  #Location to push events to (pubsub/sqs/http)
-  repository: http
-
-  #Configuration for your repository (see docs)
-  config:
-    - name:
-        en: url
-      value: http://events.yourdomain.com/cubex
 
 #######################
 #    Quick Actions    #
