@@ -11,3 +11,7 @@ func Imperium() Service {
 func Socket() Service {
 	return Service{key: "socket"}
 }
+
+func Project() Service {
+	return Service{key: "project"}
+}
