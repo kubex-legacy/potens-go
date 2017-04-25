@@ -12,7 +12,7 @@ type AppDefinition struct {
 	UIMode                    UIMode
 	ConfigVersion             float32 `yaml:"config_version"`
 	Version                   float32
-	VendorID                  string
+	VendorID                  string `yaml:"vendor_id"`
 	TrustedVendor             bool
 	AppID                     string `yaml:"app_id"`
 	GroupID                   string `yaml:"group_id"`
