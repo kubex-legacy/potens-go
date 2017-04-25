@@ -24,8 +24,8 @@ func Apps() Service {
 	return Service{key: "apps"}
 }
 
-func Vendor() Service {
-	return Service{key: "vendor"}
+func Vendors() Service {
+	return Service{key: "vendors"}
 }
 
 func Schema() Service {
