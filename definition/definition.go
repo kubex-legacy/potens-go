@@ -41,14 +41,14 @@ type AppType string
 
 //App Types
 const (
-	//AppTypeBackgroundApplication Background Application
-	AppTypeBackgroundApplication AppType = "kubex.application.background"
+	//AppTypeBackground Background Application
+	AppTypeBackground AppType = "kubex.application.background"
 
-	// AppTypeProjectApplication Standard Application
-	AppTypeProjectApplication AppType = "kubex.application.project"
+	// AppTypeProject Standard Application
+	AppTypeProject AppType = "kubex.application.project"
 
-	// AppTypeUserApplication Standard User Application (Sidebar)
-	AppTypeUserApplication AppType = "kubex.application.user"
+	// AppTypeUser Standard User Application (Sidebar)
+	AppTypeUser AppType = "kubex.application.user"
 
 	//AppTypeService Service Only
 	AppTypeService AppType = "kubex.service"
