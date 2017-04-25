@@ -41,11 +41,17 @@ type AppType string
 
 //App Types
 const (
-	// AppTypePlatformProjectApplication Standard Application
-	AppTypePlatformProjectApplication AppType = "kubex.platform.application.project"
+	//AppTypeBackgroundApplication Background Application
+	AppTypeBackgroundApplication AppType = "kubex.application.background"
 
-	// AppTypePlatformUserApplication Standard User Application (Sidebar)
-	AppTypePlatformUserApplication AppType = "kubex.platform.application.user"
+	// AppTypeProjectApplication Standard Application
+	AppTypeProjectApplication AppType = "kubex.application.project"
+
+	// AppTypeUserApplication Standard User Application (Sidebar)
+	AppTypeUserApplication AppType = "kubex.application.user"
+
+	//AppTypeService Service Only
+	AppTypeService AppType = "kubex.service"
 )
 
 // UIMode UI Mode Provided By The App

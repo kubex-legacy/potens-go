@@ -2,7 +2,7 @@
 # SAMPLE DEFINITION FILE #
 ##########################
 
-type: kubex.platform.application.project
+type: kubex.application.project
 ui_mode: full
 
 config_version: 1.0
