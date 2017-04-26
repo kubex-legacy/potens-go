@@ -22,6 +22,7 @@ const (
 type DataItem struct {
 	ID          string
 	Type        DataType
+	Required    bool
 	Name        i18n.Translations
 	Description i18n.Translations
 	Options     map[string]string
