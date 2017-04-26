@@ -6,5 +6,6 @@ type AppAction struct {
 	ID          string
 	Name        i18n.Translations
 	Description i18n.Translations
-	Properties  map[string]DataItem
+	Inputs      map[string]DataItem
+	Outputs     map[string]DataItem
 }
