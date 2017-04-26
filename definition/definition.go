@@ -31,10 +31,12 @@ type AppDefinition struct {
 	Notifications             []AppNotification
 	Roles                     []AppRole
 	Config                    []AppConfig
-	Events                    []AppEvent
-	Actions                   []AppAction
-	Lookups                   []AppLookup
-	Integrations              AppIntegrations
+
+	Actions []AppAction
+	Lookups []AppLookup
+	Events  []AppEvent
+
+	Integrations AppIntegrations
 	//Dependencies GAIDs that this app requires
 	Dependencies []string
 }
