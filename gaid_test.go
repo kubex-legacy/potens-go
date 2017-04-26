@@ -48,3 +48,39 @@ func TestSplitGaID(t *testing.T) {
 		t.Error("Failed to error on invalid GAID")
 	}
 }
+
+func TestSplitGaIDEx(t *testing.T) {
+	vendor, app, rem, err := potens.SplitGaIDEx("cubex/app")
+	if err != nil {
+		t.Error(err.Error())
+	}
+	if vendor != "cubex" {
+		t.Error("Incorrect vendor ID")
+	}
+	if app != "app" {
+		t.Error("Incorrect app ID")
+	}
+	if rem != "" {
+		t.Error("Incorrect remaining")
+	}
+
+	vendor, app, rem, err = potens.SplitGaIDEx("cubex")
+	if err == nil {
+		t.Error("Failed to error on invalid GAID")
+	}
+
+	vendor, app, rem, err = potens.SplitGaIDEx("cubex/abc/def")
+	if vendor != "cubex" {
+		t.Error("Incorrect vendor ID")
+	}
+	if app != "abc" {
+		t.Error("Incorrect app ID")
+	}
+	if rem != "def" {
+		t.Error("Incorrect remaining")
+	}
+	vendor, app, rem, err = potens.SplitGaIDEx("cubex/abc/def/xyz")
+	if rem != "def/xyz" {
+		t.Error("Incorrect remaining")
+	}
+}
