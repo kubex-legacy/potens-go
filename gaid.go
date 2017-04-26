@@ -35,6 +35,17 @@ func SplitGaID(gaid string) (string, string, error) {
 	return parts[0], parts[1], nil
 }
 
+//SplitGaIDEx Split a Global App ID into Vendor and App ID, and remaining parts
+func SplitGaIDEx(gaid string) (string, string, string, error) {
+	parts := strings.SplitN(gaid, "/", 3)
+	if len(parts) < 2 {
+		return "", "", "", errors.New("Invalid GAID Provided")
+	} else if len(parts) < 3 {
+		return parts[0], parts[1], "", nil
+	}
+	return parts[0], parts[1], parts[2], nil
+}
+
 //ValidateGlobalAppID Validates a Global App ID
 func ValidateGlobalAppID(gapid string) error {
 	if strings.Trim(gapid, "/") != gapid {
