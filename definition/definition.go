@@ -10,6 +10,7 @@ import (
 type AppDefinition struct {
 	Type                      AppType
 	UIMode                    UIMode
+	Auth                      AuthConfig
 	ConfigVersion             float32 `yaml:"config_version"`
 	Version                   float32
 	VendorID                  string `yaml:"vendor_id"`

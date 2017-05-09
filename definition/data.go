@@ -19,12 +19,28 @@ const (
 	DataTypePassword  DataType = "password"
 )
 
+type DataLocation string
+
+const (
+	DataLocationHeader      DataLocation = "header"
+	DataLocationQueryString DataLocation = "querystring"
+	DataLocationBody        DataLocation = "body"
+	DataLocationPost        DataLocation = "post"
+	DataLocationPath        DataLocation = "path"
+)
+
 type DataItem struct {
-	ID          string
+	//ID common computer friendly name e.g. api_token
+	ID string
+	//Key when transferring data, e.g. in Headers, you may want to set a specific key e.g. X-Auth-Token
+	Key         string
 	Type        DataType
 	Required    bool
 	Name        i18n.Translations
 	Description i18n.Translations
 	Options     map[string]string
 	Default     string
+	Location    DataLocation
+	//LocationPattern e.g. /users/{userid}/members/.* (path) | user.company.name (body)
+	LocationPattern string
 }
