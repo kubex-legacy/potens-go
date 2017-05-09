@@ -8,4 +8,5 @@ type AppAction struct {
 	Description i18n.Translations
 	Inputs      map[string]DataItem
 	Outputs     map[string]DataItem
+	Endpoint    EndpointDefinition
 }

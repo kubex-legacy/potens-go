@@ -17,4 +17,5 @@ type AppEvent struct {
 	CreateType  AppEventType
 	Inputs      map[string]DataItem
 	Outputs     map[string]DataItem
+	Endpoint    EndpointDefinition
 }
