@@ -1,6 +1,7 @@
 package webui
 
 import (
+	"encoding/json"
 	"net/url"
 
 	"github.com/kubex/potens-go/webui/breadcrumb"
@@ -11,6 +12,15 @@ import (
 func CreateResponse() *application.HTTPResponse {
 	response := &application.HTTPResponse{}
 	response.Headers = make(map[string]*application.HTTPResponse_HTTPHeaderParameter)
+	return response
+}
+
+//CreateJsonResponse Creates a new response
+func CreateJsonResponse(content interface{}) *application.HTTPResponse {
+	response := CreateResponse()
+	SetContentType(response, "application/json")
+	jsonContent, _ := json.Marshal(content)
+	response.Body = string(jsonContent)
 	return response
 }
 
@@ -37,6 +47,11 @@ func SetPageIcon(response *application.HTTPResponse, Icon string) {
 //SetPageFID set the FID for the entity being shown on the page
 func SetPageFID(response *application.HTTPResponse, FID string) {
 	response.Headers["x-cube-page-fid"] = &application.HTTPResponse_HTTPHeaderParameter{Values: []string{FID}}
+}
+
+//SetContentType set the content type
+func SetContentType(response *application.HTTPResponse, contentType string) {
+	response.Headers["Content-Type"] = &application.HTTPResponse_HTTPHeaderParameter{Values: []string{contentType}}
 }
 
 // PageIntergrationType
