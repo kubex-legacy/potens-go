@@ -4,6 +4,7 @@ import (
 	"errors"
 	"os"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/kubex/potens-go/services"
@@ -57,6 +58,9 @@ func (app *Application) RegisterWithDiscovery(hostname string, port string) erro
 		return ErrDiscoveryUnableToRegister
 	}
 
+	app.services.discoveryHost = hostname
+	app.services.discoveryPort = port
+
 	return nil
 }
 
@@ -67,12 +71,16 @@ func (app *Application) discoveryHeartBeat() {
 			return
 		}
 		app.Log().Debug("Sending heartbeat to discovery")
-		app.services.discoveryClient.HeartBeat(app.GetGrpcContext(), &discovery.HeartBeatRequest{
+		_, err := app.services.discoveryClient.HeartBeat(app.GetGrpcContext(), &discovery.HeartBeatRequest{
 			AppId:        app.GlobalAppID(),
 			InstanceUuid: app.instanceID,
 			Version:      app.appVersion,
 		})
-		time.Sleep(5 * time.Second)
+		if err != nil && strings.Contains(err.Error(), "unregistered") {
+			app.RegisterWithDiscovery(app.services.discoveryHost, app.services.discoveryPort)
+		} else {
+			time.Sleep(5 * time.Second)
+		}
 	}
 }
 

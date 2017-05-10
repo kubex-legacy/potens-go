@@ -21,7 +21,7 @@ func main() {
 
 func run(app *potens.Application) {
 	app.Log().Info("Ready to serve")
-	app.FatalErr(app.RegisterWithDiscovery())
+	app.FatalErr(app.RegisterWithDiscovery("host", "50051"))
 	app.FatalErr(app.DiscoveryOnline())
 	err := app.Serve()
 	app.FatalErr(app.DiscoveryOffline())

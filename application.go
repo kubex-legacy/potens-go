@@ -47,6 +47,8 @@ type Application struct {
 
 type serviceCache struct {
 	discoveryClient discovery.DiscoveryClient
+	discoveryHost   string
+	discoveryPort   string
 	socketHandler   *socketHandler
 }
 
