@@ -33,9 +33,9 @@ type AppDefinition struct {
 	Roles                     []AppRole
 	Config                    []AppConfig
 
-	Actions []AppAction
-	Lookups []AppLookup
-	Events  []AppEvent
+	Actions []AppAle
+	Lookups []AppAle
+	Events  []AppAle
 
 	Integrations AppIntegrations
 	//Dependencies GAIDs that this app requires
