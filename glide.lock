@@ -1,5 +1,5 @@
 hash: 1f2e2ff536fd62b9ccc2b07ef0d889014b584fe252ab5c3edd698f5534ef649d
-updated: 2017-05-15T15:26:59.42830648+01:00
+updated: 2017-05-22T21:16:01.899499525+01:00
 imports:
 - name: github.com/cubex/cubeutil-go
   version: 0f65726a3eeae68a98a9c5d245043ed5231d2617
@@ -8,12 +8,12 @@ imports:
   subpackages:
   - keys
 - name: github.com/golang/protobuf
-  version: b50ceb1fa9818fa4d78b016c2d4ae025593a7ce3
+  version: fec3b39b059c0f88fa6b20f5ed012b1aa203a8b4
   subpackages:
   - proto
   - ptypes/timestamp
 - name: github.com/kubex/proto-go
-  version: 4b0ff083441a971b5abe2e8f3193c3a67b2acaed
+  version: d71178b0552d3f1c4e43a114e948043364532907
   subpackages:
   - application
   - discovery
@@ -22,7 +22,7 @@ imports:
 - name: github.com/opentracing/opentracing-go
   version: 1949ddbfd147afd4d964a9f00b24eb291e0e7c38
 - name: github.com/satori/go.uuid
-  version: 879c5887cd475cd7864858769793b2ceb0d44feb
+  version: 5bf94b69c6b68ee1b541973bb8e1144db23a194b
 - name: go.uber.org/atomic
   version: 4e336646b2ef9fc6e47be8e21594178f98e5ebcf
 - name: go.uber.org/zap
@@ -35,7 +35,7 @@ imports:
   - internal/multierror
   - zapcore
 - name: golang.org/x/net
-  version: c9b681d35165f1995d6f3034e61f8761d4b90c99
+  version: 0d772244c73d752bbe0c729ff997a09d6a6fdaf1
   subpackages:
   - context
   - http2
@@ -45,7 +45,7 @@ imports:
   - lex/httplex
   - trace
 - name: golang.org/x/text
-  version: 470f45bf29f4147d6fbd7dfd0a02a848e49f5bf4
+  version: 19e51611da83d6be54ddafce4a4af510cb3e9ea4
   subpackages:
   - secure/bidirule
   - transform

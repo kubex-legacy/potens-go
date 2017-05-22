@@ -40,8 +40,8 @@ func Notify() Service {
 	return Service{key: "notify"}
 }
 
-func Impart() Service {
-	return Service{key: "impart"}
+func DataPipe() Service {
+	return Service{key: "datapipe"}
 }
 
 func Config() Service {
