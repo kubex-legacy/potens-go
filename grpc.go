@@ -7,8 +7,10 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/cubex/portcullis-go/keys"
+	"go.uber.org/zap"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
@@ -62,7 +64,7 @@ func (app *Application) Serve() error {
 	return app.server.Serve(lis)
 }
 
-func (app *Application) GetServiceConnection(service string) (*grpc.ClientConn, error) {
+func (app *Application) grpcServiceDialer(service string, timeout time.Duration) (net.Conn, error) {
 	location := os.Getenv(strings.ToUpper(service) + EnvServiceLocationSuffix)
 
 	kubexServiceDomain := os.Getenv(EnvKubexServiceDomain)
@@ -77,8 +79,13 @@ func (app *Application) GetServiceConnection(service string) (*grpc.ClientConn, 
 		location += ":" + strconv.FormatInt(int64(KubexDefaultGRPCPort), 10)
 	}
 
-	return grpc.Dial(location, grpc.WithInsecure())
-	//return grpc.Dial(location, grpc.WithTransportCredentials(credentials.NewClientTLSFromCert(nil, "")))
+	app.Log().Debug("Dialing GRPC", zap.String("service", service), zap.String("location", location))
+
+	return net.DialTimeout("tcp", location, timeout)
+}
+
+func (app *Application) GetServiceConnection(service string) (*grpc.ClientConn, error) {
+	return grpc.Dial(service, grpc.WithInsecure(), grpc.WithDialer(app.grpcServiceDialer))
 }
 
 func (app *Application) getEnvLocation(prefix string, service string) string {
