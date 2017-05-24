@@ -76,7 +76,11 @@ func (app *Application) discoveryHeartBeat() {
 			InstanceUuid: app.instanceID,
 			Version:      app.appVersion,
 		})
-		if err != nil && strings.Contains(err.Error(), "unregistered") {
+		if err != nil {
+			if !strings.Contains(err.Error(), "unregistered") {
+				app.services.discoveryClient = nil
+				app.connectToDiscovery()
+			}
 			app.RegisterWithDiscovery(app.services.discoveryHost, app.services.discoveryPort)
 		} else {
 			time.Sleep(5 * time.Second)
