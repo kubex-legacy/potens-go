@@ -3,6 +3,7 @@ package webui
 import (
 	"encoding/json"
 	"net/url"
+	"strings"
 
 	"github.com/kubex/potens-go/webui/breadcrumb"
 	"github.com/kubex/proto-go/application"
@@ -74,4 +75,11 @@ func GetUrl(request *application.HTTPRequest) *url.URL {
 		ForceQuery: false,
 		RawQuery:   request.QueryString,
 	}
+}
+
+func GetParameter(params map[string]*application.HTTPRequest_HTTPParameter, key string) string {
+	if val, exists := params[key]; exists {
+		return strings.Join(val.Values, ", ")
+	}
+	return ""
 }
