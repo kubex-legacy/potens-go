@@ -44,36 +44,11 @@ type AppDefinition struct {
 	Dependencies []string
 }
 
-// AppType Application Type
-type AppType string
-
-//App Types
-const (
-	//AppTypeBackground Background Application
-	AppTypeBackground AppType = "kubex.application.background"
-
-	// AppTypeProject Standard Application
-	AppTypeProject AppType = "kubex.application.project"
-
-	// AppTypeUser Standard User Application (Sidebar)
-	AppTypeUser AppType = "kubex.application.user"
-
-	//AppTypeService Service Only
-	AppTypeService AppType = "kubex.service"
-)
-
-// UIMode UI Mode Provided By The App
-type UIMode string
-
-//UI Modes
-const (
-	//UIModeNone - No UI Provided
-	UIModeNone UIMode = "none"
-	//UIModeIntegration - Integrated into pages
-	UIModeIntegration UIMode = "integration"
-	//UIModeFull - Full UI Application
-	UIModeFull UIMode = "full"
-)
+func New() AppDefinition {
+	def := AppDefinition{}
+	def.Installable = true
+	return def
+}
 
 // FromConfig Populates your definition based on your app-definition.dist.yaml
 func (d *AppDefinition) FromConfig(yamlFile string) error {
