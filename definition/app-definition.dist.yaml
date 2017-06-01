@@ -4,6 +4,7 @@
 
 type: kubex.application.project
 ui_mode: full
+installable: true
 
 config_version: 1.0
 
@@ -46,6 +47,8 @@ description:
 
 #cube-icon value, can be iron icon name, eg. icons:3d_rotation, or an svg
 icon: social:group
+
+color: purple
 
 #######################
 #     Navigation      #

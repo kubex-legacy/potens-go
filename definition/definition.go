@@ -10,6 +10,7 @@ import (
 type AppDefinition struct {
 	Type                      AppType
 	UIMode                    UIMode `yaml:"ui_mode"`
+	Installable               bool
 	Auth                      AuthConfig
 	ConfigVersion             float32 `yaml:"config_version"`
 	Version                   float32
@@ -22,6 +23,7 @@ type AppDefinition struct {
 	Name                      i18n.Translations
 	Description               i18n.Translations
 	Icon                      string
+	Color                     AppColor
 	AdvancedNotificationsPath string `yaml:"advanced_notifications_path"`
 	AdvancedConfigPath        string `yaml:"advanced_config_path"`
 	Navigation                []AppNavigation
