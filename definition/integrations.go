@@ -10,22 +10,11 @@ type AppIntegrationPanel struct {
 	Path string
 }
 
-// AppIntegrationMenuItemMode Launch mode for a integration menu item
-type AppIntegrationMenuItemMode string
-
-const (
-	// AppIntegrationMenuItemModePage Redirect to a new page
-	AppIntegrationMenuItemModePage AppIntegrationMenuItemMode = "page"
-	// AppIntegrationMenuItemModeIntegrated Open within the content area of the entity page
-	AppIntegrationMenuItemModePagelet AppIntegrationMenuItemMode = "pagelet"
-)
-
 type AppIntegrationMenuItem struct {
 	ID          string
 	Hook        string
 	Path        string
 	Icon        string
-	Mode        AppIntegrationMenuItemMode
 	Title       i18n.Translations
 	Description i18n.Translations
 }
@@ -36,8 +25,6 @@ type AppIntegrationActionMode string
 const (
 	// AppIntegrationActionModePage Redirect to a new page
 	AppIntegrationActionModePage AppIntegrationActionMode = "page"
-	// AppIntegrationActionModePagelet Open within the content area of the entity page
-	AppIntegrationActionModePagelet AppIntegrationActionMode = "pagelet"
 	// AppIntegrationActionModeDialog Open in a dialog
 	AppIntegrationActionModeDialog AppIntegrationActionMode = "dialog"
 	// AppIntegrationActionModeWindow Open in a new window
