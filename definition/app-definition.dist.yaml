@@ -261,7 +261,10 @@ integrations:
       #ID for this panel
     - id: billing-panel
       #Path to integrate into
-      hook: vendor/appid/customers/:fid
+      hook:
+       path: customers/:fid
+       vendor: vendor
+       app: app
       #Path to request panel
       path: customer/{fid}/panels/summary
   #Page Header Navigation Items
@@ -269,7 +272,10 @@ integrations:
       #ID for this menu item
     - id: billing-info
       #Path to integrate into
-      hook: vendor/appid/customers/:fid
+      hook:
+       path: customers/:fid
+       vendor: vendor
+       app: app
       #Path to link to on click
       path: customer/{fid}/billing
       #Launch style (full, integrated)
@@ -287,7 +293,10 @@ integrations:
       #ID for this menu item
     - id: billing-info
       #Path to integrate into
-      hook: vendor/appid/customers/:fid
+      hook:
+       path: customers/:fid
+       vendor: vendor
+       app: app
       #Path to link to on click
       path: customer/{fid}/billing
       #Launch style (full, integrated)
@@ -305,7 +314,10 @@ integrations:
       #ID for this action
     - id: create-order
       #Path to integrate into
-      hook: vendor/appid/customers/:fid
+      hook:
+        path: customers/:fid
+        vendor: vendor
+        app: app
       #Path to link to on click
       path: customer/{fid}/orders/create
       #Action text
@@ -326,7 +338,10 @@ integrations:
       #ID for this action
     - id: create-order
       #Path to integrate into
-      hook: vendor/appid/customers/:fid
+      hook:
+       path: customers/:fid
+       vendor: vendor
+       app: app
       #Path to link to on click
       path: customer/{fid}/orders/create
       #Action text

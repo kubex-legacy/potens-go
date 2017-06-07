@@ -1,6 +1,8 @@
 package definition_test
 
 import (
+	"encoding/json"
+	"log"
 	"testing"
 
 	"github.com/kubex/potens-go/definition"
@@ -25,4 +27,7 @@ func TestReadYaml(t *testing.T) {
 	if i18n.NewTranslatable(def.Name).Get("eeewf") != "Customers" {
 		t.Error("Failed to read default")
 	}
+
+	jsonBytes, err := json.Marshal(def)
+	log.Print(string(jsonBytes))
 }

@@ -4,15 +4,21 @@ import (
 	"github.com/kubex/potens-go/i18n"
 )
 
+type Hook struct {
+	VendorID string `yaml:"vendor"`
+	AppID    string `yaml:"app"`
+	Path     string
+}
+
 type AppIntegrationPanel struct {
 	ID   string
-	Hook string
+	Hook Hook
 	Path string
 }
 
 type AppIntegrationMenuItem struct {
 	ID          string
-	Hook        string
+	Hook        Hook
 	Path        string
 	Icon        string
 	Title       i18n.Translations
@@ -33,7 +39,7 @@ const (
 
 type AppIntegrationAction struct {
 	ID          string
-	Hook        string
+	Hook        Hook
 	Path        string
 	Icon        string
 	Mode        AppIntegrationActionMode
