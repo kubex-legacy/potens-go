@@ -17,6 +17,7 @@ const (
 	DataTypeTimestamp DataType = "timestamp"
 	DataTypeList      DataType = "list"
 	DataTypePassword  DataType = "password"
+	DataTypeJson      DataType = "json"
 )
 
 type DataLocation string

@@ -34,6 +34,7 @@ type AppDefinition struct {
 	Notifications             []AppNotification
 	Roles                     []AppRole
 	Config                    []AppConfig
+	Rpcs                      []Rpc
 
 	Actions []AppAle
 	Lookups []AppAle

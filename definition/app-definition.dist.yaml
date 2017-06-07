@@ -233,22 +233,69 @@ roles:
     # Global roles must be prefixed with a /
   - id: administrator
 
+
+#######################
+#         Auth        #
+#######################
+auth:
+  type: apiKey
+  parameters:
+    - id: api-key
+      key: apikey
+      type: password
+      required: true
+      name:
+        en: API Key
+      description:
+        en: API Key From your control panel
+      location: header
+
+#######################
+#        RPCs         #
+#######################
+# RPCs that can be exposed from the service, that can
+rpcs:
+  - method: Search
+    #Display name
+    name:
+      en: Search Something
+    #Restrict this action to specific roles, leave blank to remove restrictions
+    roles:
+      - id: //customer-manager
+    input:
+      - id: search-filter
+        key: filter
+        type: string
+        required: true
+        name:
+          en: Filter String
+        description:
+          en: API Key From your control panel
+    output:
+      - id: results
+        key: results
+        type: json
+        name:
+          en: Search Results
+
 #######################
 #     Permissions     #
 #######################
 # Permissions required, or requested on other applications
 
 permissions:
-    # Global App ID to request information from
-  - gaid: vendor/appid
+
+    # Vendor ID for the App
+  - vendor: vendor
+    # App ID handling the RPC
+    app: appid
     # Call you would like to make
-    rpc: list
+    rpc: Search
     #Permission mode: required, optional
     mode: required
     #Reason your app requires access to this call
     reason:
-      en: Pull out customer information to send emails
-      fr: Tirez sur les informations client pour envoyer des emails
+      en: Search for customers
 
 #######################
 #      Integrate      #
