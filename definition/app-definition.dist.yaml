@@ -69,8 +69,8 @@ navigation:
     path: customers/
     #Restrict this menu item to specific roles, leave blank to remove restrictions
     roles:
-      - //customer-manager
-      - administrator
+      - id: //customer-manager
+      - id: administrator
 
 #######################
 # Entity Information  #
@@ -117,8 +117,8 @@ quick_actions:
     path: customers/create
     #Restrict this action to specific roles, leave blank to remove restrictions
     roles:
-      - //customer-manager
-      - administrator
+      - id: //customer-manager
+      - id: administrator
 
 #######################
 #   Search  Actions   #
@@ -147,8 +147,8 @@ search_actions:
       - joined
     #Restrict this action to specific roles, leave blank to remove restrictions
     roles:
-      - //customer-manager
-      - administrator
+      - id: //customer-manager
+      - id: administrator
 
 #######################
 #       Queues        #
@@ -167,7 +167,7 @@ queues:
     path: customers/pending/queue
     #Restrict this action to specific roles, leave blank to remove restrictions
     roles:
-      - //customer-manager
+      - id: //customer-manager
 
 #######################
 #    Notifications    #
@@ -202,8 +202,8 @@ notifications:
         type: string
     #Restrict this action to specific roles, leave blank to remove restrictions
     roles:
-      - //customer-manager
-      - administrator
+      - id: //customer-manager
+      - id: administrator
 
 #######################
 #        Roles        #

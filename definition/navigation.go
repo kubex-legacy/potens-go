@@ -11,5 +11,5 @@ type AppNavigation struct {
 	Description i18n.Translations
 	Icon        string
 	Path        string
-	Roles       []string
+	Roles       []AppRole
 }

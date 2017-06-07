@@ -47,6 +47,7 @@ type AppDefinition struct {
 func New() AppDefinition {
 	def := AppDefinition{}
 	def.Installable = true
+	def.Auth.Type = AuthTypeNoAuth
 	return def
 }
 

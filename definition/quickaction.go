@@ -23,5 +23,5 @@ type AppQuickAction struct {
 	Icon  string
 	mode  QuickActionMode
 	Path  string
-	Roles []string
+	Roles []AppRole
 }

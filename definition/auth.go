@@ -16,5 +16,5 @@ const (
 
 type AuthConfig struct {
 	Type       AuthType
-	Parameters DataItem
+	Parameters []DataItem `json:",omitempty"`
 }

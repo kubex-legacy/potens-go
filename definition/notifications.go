@@ -12,7 +12,7 @@ type AppNotification struct {
 	Message     i18n.Translations
 	Icon        string
 	Path        string
-	Roles       []string
+	Roles       []AppRole
 	Attributes  []AppNotificationAttribute
 }
 

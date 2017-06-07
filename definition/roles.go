@@ -9,8 +9,12 @@ import (
 // AppRole Roles provided by your application
 type AppRole struct {
 	ID          string
-	Name        i18n.Translations
-	Description i18n.Translations
+	Name        i18n.Translations `json:",omitempty"`
+	Description i18n.Translations `json:",omitempty"`
+}
+
+func NewRole(roleID string) AppRole {
+	return AppRole{ID: roleID}
 }
 
 // VendorID Retrieves the vendor ID for this role, empty for a global role
@@ -37,6 +41,12 @@ func (role *AppRole) AppID(appDef *AppDefinition) string {
 	}
 
 	return appDef.AppID
+}
+
+// RoleID Retrieves the Role ID for this role
+func (role *AppRole) RoleID() string {
+	roleSplit := strings.SplitN(role.ID, "/", 3)
+	return roleSplit[len(roleSplit)-1]
 }
 
 // IsBuiltIn returns true for global roles, e.g. owner
