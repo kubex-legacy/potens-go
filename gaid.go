@@ -4,12 +4,36 @@ import (
 	"errors"
 	"strings"
 	"github.com/cubex/cubeutil-go"
+	"github.com/kubex/potens-go/definition"
 )
 
 var (
 	//ErrInvalidGlobalAppID invalid Global App ID
 	ErrInvalidGlobalAppID = errors.New("The Global App ID specified is invalid")
 )
+
+type GlobalAppID struct {
+	VendorID string
+	AppID    string
+	AppType  definition.AppType
+}
+
+func (gaid *GlobalAppID) String() string {
+	return gaid.VendorID + "/" + gaid.AppID
+}
+
+func NewGlobalAppID(vendorID string, applicationID string) GlobalAppID {
+	gaid := GlobalAppID{
+		VendorID: vendorID,
+		AppID:    applicationID,
+	}
+	return gaid
+}
+
+func BuildGlobalAppID(gaid string) (GlobalAppID, string) {
+	parts := strings.SplitN(gaid, "/", 3)
+	return NewGlobalAppID(parts[0], parts[1]), parts[2]
+}
 
 //MakeGaID Create a Global App ID from your vendor and application IDs
 func MakeGaID(vendor string, application string) (string, error) {
