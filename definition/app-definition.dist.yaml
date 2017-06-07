@@ -362,6 +362,7 @@ config:
       fr: URI pour envoyer à l'utilisateur en cliquant sur une référence externe (ouvre dans une nouvelle fenêtre)
     #Type of value (array:comma, array:line, string, boolean, integer, float, json, uri, options)
     type: uri
+    required: true
 
     #Other Examples
   - id: require-email-verification
