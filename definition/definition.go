@@ -35,6 +35,7 @@ type AppDefinition struct {
 	Roles                     []AppRole
 	Config                    []AppConfig
 	Rpcs                      []Rpc
+	Permissions               []AppPermission
 
 	Actions []AppAle
 	Lookups []AppAle

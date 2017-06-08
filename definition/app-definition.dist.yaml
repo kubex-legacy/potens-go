@@ -291,8 +291,8 @@ permissions:
     app: appid
     # Call you would like to make
     rpc: Search
-    #Permission mode: required, optional
-    mode: required
+    #Required - if false, optional for the owner to approve
+    required: true
     #Reason your app requires access to this call
     reason:
       en: Search for customers
