@@ -10,6 +10,7 @@ import (
 	"github.com/kubex/potens-go/identity"
 )
 
+//SetIdentity Set your identity on the application
 func (app *Application) SetIdentity(ident *identity.AppIdentity) error {
 	if ident == nil {
 		ident = &identity.AppIdentity{}
@@ -47,6 +48,7 @@ func (app *Application) SetIdentity(ident *identity.AppIdentity) error {
 	return nil
 }
 
+//SetDefinition Set your application definition
 func (app *Application) SetDefinition(def *definition.AppDefinition) error {
 	if def == nil {
 		def = &definition.AppDefinition{}

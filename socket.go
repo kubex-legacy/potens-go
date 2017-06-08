@@ -15,7 +15,7 @@ func (app *Application) Socket() *socketHandler {
 		if err != nil {
 			app.Log().Fatal("Unable to connect to Sockets Server", zap.String("error", err.Error()))
 		}
-		app.services.socketHandler = newHandler(con, app.GetGrpcContext(), app.VendorID(), app.AppID())
+		app.services.socketHandler = newHandler(app.GrpcBackgroundContext(), con, app.VendorID(), app.AppID())
 	}
 	return app.services.socketHandler
 }
@@ -28,7 +28,7 @@ type socketHandler struct {
 	vendorID   string
 }
 
-func newHandler(cc *grpc.ClientConn, ctx context.Context, vendor string, appID string) *socketHandler {
+func newHandler(ctx context.Context, cc *grpc.ClientConn, vendor string, appID string) *socketHandler {
 	return &socketHandler{connection: cc, ctx: ctx, client: socket.NewSocketClient(cc), appID: appID, vendorID: vendor}
 }
 

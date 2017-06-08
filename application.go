@@ -14,6 +14,7 @@ import (
 	"google.golang.org/grpc"
 )
 
+//Application Helper struct for your application
 type Application struct {
 	/** RunTime **/
 	Port          int
@@ -47,6 +48,7 @@ type serviceCache struct {
 	socketHandler   *socketHandler
 }
 
+//FatalErr If an error is provided, Log().Fatal()
 func (app *Application) FatalErr(err error) {
 	if err != nil {
 		app.Log().Fatal("Oops", zap.Error(err))
