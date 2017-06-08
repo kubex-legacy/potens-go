@@ -9,7 +9,6 @@ func QuickStartApp(name string, ident *identity.AppIdentity, def *definition.App
 	app := NewApplication(name)
 	app.FatalErr(app.SetIdentity(ident))
 	app.FatalErr(app.SetDefinition(def))
-	app.FatalErr(app.GetCertificate())
 	app.FatalErr(app.CreateServer())
 	return app
 }

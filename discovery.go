@@ -9,6 +9,7 @@ import (
 
 	"github.com/kubex/potens-go/services"
 	"github.com/kubex/proto-go/discovery"
+	"go.uber.org/zap"
 )
 
 var ErrDiscoveryUnableToRegister = errors.New("Unable to register with the discovery service")
@@ -27,11 +28,15 @@ func (app *Application) connectToDiscovery() error {
 }
 
 func (app *Application) RegisterWithDiscovery(hostname string, port string) error {
+	app.Log().Debug("Registering with Discovery")
+
 	err := app.connectToDiscovery()
 	if err != nil {
+		app.Log().Info("Discovery Connect Failure", zap.Error(err))
 		return err
 	}
 
+	app.Log().Debug("Opened Connection to Discovery")
 	version := os.Getenv(app.ServiceKey() + EnvServiceVersionSuffix)
 	app.appVersion = discovery.AppVersion_STABLE
 	if version != "" {
@@ -43,7 +48,9 @@ func (app *Application) RegisterWithDiscovery(hostname string, port string) erro
 
 	portInt, _ := strconv.ParseInt(port, 10, 32)
 
-	regResult, err := app.services.discoveryClient.Register(app.GetGrpcContext(), &discovery.RegisterRequest{
+	app.Log().Debug("Starting Registration")
+	tCtx, _ := app.GrpcTimeoutContext(time.Second * 5)
+	regResult, err := app.services.discoveryClient.Register(tCtx, &discovery.RegisterRequest{
 		AppId:        app.GlobalAppID(),
 		InstanceUuid: app.instanceID,
 		ServiceHost:  hostname,
@@ -51,10 +58,12 @@ func (app *Application) RegisterWithDiscovery(hostname string, port string) erro
 		ServicePort:  int32(portInt),
 	})
 	if err != nil {
+		app.Log().Info("Registration Failure", zap.Error(err))
 		return err
 	}
 
 	if !regResult.Recorded {
+		app.Log().Debug("Unable to register")
 		return ErrDiscoveryUnableToRegister
 	}
 
@@ -71,7 +80,8 @@ func (app *Application) discoveryHeartBeat() {
 			return
 		}
 		app.Log().Debug("Sending heartbeat to discovery")
-		_, err := app.services.discoveryClient.HeartBeat(app.GetGrpcContext(), &discovery.HeartBeatRequest{
+		tCtx, _ := app.GrpcTimeoutContext(time.Second * 1)
+		_, err := app.services.discoveryClient.HeartBeat(tCtx, &discovery.HeartBeatRequest{
 			AppId:        app.GlobalAppID(),
 			InstanceUuid: app.instanceID,
 			Version:      app.appVersion,
@@ -94,7 +104,8 @@ func (app *Application) DiscoveryOnline() error {
 		return err
 	}
 
-	statusResult, err := app.services.discoveryClient.Status(app.GetGrpcContext(), &discovery.StatusRequest{
+	tCtx, _ := app.GrpcTimeoutContext(time.Second * 5)
+	statusResult, err := app.services.discoveryClient.Status(tCtx, &discovery.StatusRequest{
 		AppId:        app.GlobalAppID(),
 		InstanceUuid: app.instanceID,
 		Version:      app.appVersion,
@@ -122,7 +133,8 @@ func (app *Application) DiscoveryOffline() error {
 		return err
 	}
 
-	statusResult, err := app.services.discoveryClient.Status(app.GetGrpcContext(), &discovery.StatusRequest{
+	tCtx, _ := app.GrpcTimeoutContext(time.Second * 5)
+	statusResult, err := app.services.discoveryClient.Status(tCtx, &discovery.StatusRequest{
 		AppId:        app.GlobalAppID(),
 		InstanceUuid: app.instanceID,
 		Version:      app.appVersion,

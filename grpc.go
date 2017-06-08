@@ -1,8 +1,6 @@
 package potens
 
 import (
-	"crypto/tls"
-	"errors"
 	"net"
 	"os"
 	"strconv"
@@ -13,39 +11,32 @@ import (
 	"go.uber.org/zap"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/metadata"
 )
 
-// GetGrpcContext context to use when communicating with other services
-func (app *Application) GetGrpcContext() context.Context {
+// GrpcBackgroundContext context to use when communicating with other services
+func (app *Application) GrpcBackgroundContext() context.Context {
+	return app.GrpcContext(context.Background())
+}
+
+// GrpcTimeoutContext context to use when communicating with other services
+func (app *Application) GrpcTimeoutContext(timeout time.Duration) (context.Context, context.CancelFunc) {
+	return context.WithTimeout(app.GrpcContext(context.Background()), timeout)
+}
+
+// GrpcContext context to use when communicating with other services
+func (app *Application) GrpcContext(parent context.Context) context.Context {
 	md := metadata.Pairs(
 		keys.GetAppIDKey(), app.Definition().AppID,
 		keys.GetAppVendorKey(), app.Definition().VendorID,
 	)
-	return metadata.NewContext(context.Background(), md)
+	return metadata.NewContext(parent, md)
 }
 
 // CreateServer creates a gRPC server with your tls certificates
 func (app *Application) CreateServer() error {
 
 	app.server = grpc.NewServer()
-
-	//Do not secure with imperium for initial development
-	if true {
-		return nil
-	}
-
-	if app.imperiumKey == nil || app.imperiumCertificate == nil || app.hostname == "" {
-		return errors.New("CreateServer called before GetCertificate, or GetCertificate call failed")
-	}
-
-	cert, err := tls.X509KeyPair(app.imperiumCertificate, app.imperiumKey)
-	if err != nil {
-		return err
-	}
-
-	app.server = grpc.NewServer(grpc.Creds(credentials.NewServerTLSFromCert(&cert)))
 
 	return nil
 }

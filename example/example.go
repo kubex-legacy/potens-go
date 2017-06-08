@@ -14,7 +14,6 @@ func main() {
 
 	app.FatalErr(app.SetIdentity(nil))
 	app.FatalErr(app.SetDefinition(nil))
-	app.FatalErr(app.GetCertificate())
 	app.FatalErr(app.CreateServer())
 	run(app)
 }

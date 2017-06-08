@@ -35,11 +35,6 @@ type Application struct {
 	/** Utility **/
 	logger *zap.Logger
 
-	/** Security **/
-	imperiumCertificate []byte
-	imperiumKey         []byte
-	hostname            string
-
 	/** gRPC **/
 	server   *grpc.Server
 	services *serviceCache
