@@ -5,7 +5,6 @@ import (
 	"strings"
 
 	"github.com/cubex/cubeutil-go"
-	"github.com/kubex/potens-go/definition"
 )
 
 var (
@@ -17,7 +16,6 @@ var (
 type GlobalAppID struct {
 	VendorID  string
 	AppID     string
-	AppType   definition.AppType
 	Remainder string
 }
 
