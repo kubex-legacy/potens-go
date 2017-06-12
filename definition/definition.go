@@ -60,7 +60,12 @@ func (d *AppDefinition) FromConfig(yamlFile string) error {
 		return err
 	}
 
-	return d.FromYamlString(string(yamlContent))
+	err = d.FromYamlString(string(yamlContent))
+	if err != nil {
+		return err
+	}
+	d.Parse()
+	return nil
 }
 
 //GlobalAppID returns the global app ID for the definition

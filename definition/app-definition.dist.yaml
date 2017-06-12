@@ -322,7 +322,6 @@ integrations:
       hook:
        path: customers/:fid
        vendor: vendor
-       app: app
       #Path to link to on click
       path: customer/{fid}/billing
       #Launch style (full, integrated)
@@ -342,8 +341,6 @@ integrations:
       #Path to integrate into
       hook:
        path: customers/:fid
-       vendor: vendor
-       app: app
       #Path to link to on click
       path: customer/{fid}/billing
       #Launch style (full, integrated)
