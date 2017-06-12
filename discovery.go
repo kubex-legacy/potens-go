@@ -92,9 +92,8 @@ func (app *Application) discoveryHeartBeat() {
 				app.connectToDiscovery()
 			}
 			app.RegisterWithDiscovery(app.services.discoveryHost, app.services.discoveryPort)
-		} else {
-			time.Sleep(5 * time.Second)
 		}
+		time.Sleep(5 * time.Second)
 	}
 }
 
