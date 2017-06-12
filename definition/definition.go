@@ -3,7 +3,7 @@ package definition
 import (
 	"io/ioutil"
 	"github.com/kubex/potens-go/i18n"
-	yaml "gopkg.in/yaml.v2"
+	"gopkg.in/yaml.v2"
 )
 
 // AppDefinition Application Definition
@@ -60,12 +60,7 @@ func (d *AppDefinition) FromConfig(yamlFile string) error {
 		return err
 	}
 
-	err = d.FromYamlString(string(yamlContent))
-	if err != nil {
-		return err
-	}
-	d.Parse()
-	return nil
+	return d.FromYamlString(string(yamlContent))
 }
 
 //GlobalAppID returns the global app ID for the definition
@@ -75,5 +70,6 @@ func (d *AppDefinition) GlobalAppID() string {
 
 func (d *AppDefinition) FromYamlString(yamlContent string) error {
 	err := yaml.Unmarshal([]byte(yamlContent), d)
+	d.Parse()
 	return err
 }
