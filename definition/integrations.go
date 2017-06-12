@@ -2,6 +2,7 @@ package definition
 
 import (
 	"github.com/kubex/potens-go/i18n"
+	"strings"
 )
 
 type Hook struct {
@@ -12,7 +13,7 @@ type Hook struct {
 
 //ToString Convert the hook to a full path
 func (h *Hook) ToString() string {
-	return h.VendorID + "/" + h.AppID + "/" + h.Path
+	return h.VendorID + "/" + h.AppID + "/" + strings.Trim(h.Path, "/")
 }
 
 type AppIntegrationPanel struct {
