@@ -10,6 +10,11 @@ type Hook struct {
 	Path     string
 }
 
+//ToString Convert the hook to a full path
+func (h *Hook) ToString() string {
+	return h.VendorID + "/" + h.AppID + "/" + h.Path
+}
+
 type AppIntegrationPanel struct {
 	ID   string
 	Hook Hook
