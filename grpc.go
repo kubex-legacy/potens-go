@@ -30,6 +30,10 @@ func (app *Application) GrpcContext(parent context.Context) context.Context {
 		keys.GetAppIDKey(), app.Definition().AppID,
 		keys.GetAppVendorKey(), app.Definition().VendorID,
 	)
+
+	if parentMd, hasParentMd := metadata.FromIncomingContext(parent); hasParentMd {
+		return metadata.NewContext(parent, metadata.Join(md, parentMd))
+	}
 	return metadata.NewContext(parent, md)
 }
 
