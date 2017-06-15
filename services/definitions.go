@@ -16,6 +16,10 @@ func Registry() Service {
 	return Service{key: "registry"}
 }
 
+func Groups() Service {
+	return Service{key: "groups"}
+}
+
 func Apps() Service {
 	return Service{key: "apps"}
 }
@@ -42,4 +46,8 @@ func DataPipe() Service {
 
 func Config() Service {
 	return Service{key: "config"}
+}
+
+func Credentials() Service {
+	return Service{key: "credentials"}
 }
