@@ -434,10 +434,10 @@ config:
     type: boolean
     default: false
     values:
-     - true:
+      true:
           en: Require email verification
           fr: Exiger un email
-     - false:
+      false:
           en: Don't require email verification
           fr: Ne pas exiger une vérification électronique
 
@@ -457,10 +457,10 @@ config:
     type: boolean
     default: true
     values:
-     - true:
+      true:
         en: Require Administrators to Approve Accounts
         fr: Exiger des administrateurs d'approuver les comptes
-     - false:
+      false:
         en: Don't require manual approval
         fr: Ne nécessite pas l'approbation manuelle
 

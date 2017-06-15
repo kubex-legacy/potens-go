@@ -36,7 +36,7 @@ type AppConfig struct {
 	Note        i18n.Translations
 	Help        i18n.Translations
 	Type        AppConfigType
-	Values      []map[string]i18n.Translations
+	Values      map[string]i18n.Translations
 	Default     string
 	Required    bool
 }
