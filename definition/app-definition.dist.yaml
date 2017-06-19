@@ -170,6 +170,34 @@ queues:
       - id: //customer-manager
 
 #######################
+#  Dashboard Panels   #
+#######################
+
+dashboard_panels:
+  - id: dash-panel-1
+    path: panels/dash-1
+    title:
+      en: Dashboard Panel
+    description:
+      en: A short description about the dashboard panel
+    icon: device:dvr
+    actions:
+      - id: action-1
+        title:
+          en: View Map
+        path: actions/dash-1/view-map
+        icon: device:airplanemode-active
+        roles:
+          - id: everyone
+      - id: view-news
+        title:
+          en: Read All News
+        path: /actions/dash-1/read-news
+        icon: device:brightness-high
+        roles:
+          - id: //customer-manager
+
+#######################
 #    Notifications    #
 #######################
 

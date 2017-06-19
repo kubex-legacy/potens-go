@@ -31,6 +31,7 @@ type AppDefinition struct {
 	QuickActions              []AppQuickAction  `yaml:"quick_actions"`
 	SearchActions             []AppSearchAction `yaml:"search_actions"`
 	Queues                    []AppQueue
+	DashboardPanels           []DashboardPanel`yaml:"dashboard_panels"`
 	Notifications             []AppNotification
 	Roles                     []AppRole
 	Config                    []AppConfig
