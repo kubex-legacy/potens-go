@@ -79,8 +79,10 @@ func (app *Application) grpcServiceDialer(service string, timeout time.Duration)
 	return net.DialTimeout("tcp", location, timeout)
 }
 
-func (app *Application) GetServiceConnection(service string) (*grpc.ClientConn, error) {
-	return grpc.Dial(service, grpc.WithInsecure(), grpc.WithDialer(app.grpcServiceDialer))
+func (app *Application) GetServiceConnection(service string, opts ...grpc.DialOption) (*grpc.ClientConn, error) {
+	opts = append(opts, grpc.WithInsecure())
+	opts = append(opts, grpc.WithDialer(app.grpcServiceDialer))
+	return grpc.Dial(service, opts...)
 }
 
 func (app *Application) getEnvLocation(prefix string, service string) string {
