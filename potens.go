@@ -76,18 +76,17 @@ func makeApp(name string) (*Application) {
 }
 
 func (app *Application) relPath(file string) string {
-	// get executable path
-	rootPath, err := os.Executable()
+
+	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
 	app.FatalErr(err)
+
 	// if executable is in TempDir use getwd instead (go run)
-	if strings.HasPrefix(rootPath, os.TempDir()) {
-		rootPath, err = os.Getwd()
+	if strings.HasPrefix(dir, os.TempDir()) {
+		dir, err = os.Getwd()
 		app.FatalErr(err)
-	} else {
-		rootPath = filepath.Dir(rootPath)
+		dir, err = filepath.Abs(dir)
+		app.FatalErr(err)
 	}
 
-	dir, err := filepath.Abs(rootPath)
-	app.FatalErr(err)
 	return path.Join(dir, file)
 }
