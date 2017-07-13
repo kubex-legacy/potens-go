@@ -10,6 +10,7 @@ import (
 	"github.com/kubex/potens-go/services"
 	"github.com/kubex/proto-go/discovery"
 	"go.uber.org/zap"
+	"net"
 )
 
 var ErrDiscoveryUnableToRegister = errors.New("Unable to register with the discovery service")
@@ -29,6 +30,14 @@ func (app *Application) connectToDiscovery() error {
 
 func (app *Application) RegisterWithDiscovery(hostname string, port string) error {
 	app.Log().Debug("Registering with Discovery")
+
+	if hostname == "" {
+		hostname = getLocalIP()
+	}
+
+	if port == "" {
+		port = app.PortString()
+	}
 
 	err := app.connectToDiscovery()
 	if err != nil {
@@ -71,6 +80,22 @@ func (app *Application) RegisterWithDiscovery(hostname string, port string) erro
 	app.services.discoveryPort = port
 
 	return nil
+}
+
+func getLocalIP() string {
+	addrs, err := net.InterfaceAddrs()
+	if err != nil {
+		return ""
+	}
+	for _, address := range addrs {
+		// check the address type and if it is not a loopback the display it
+		if ipnet, ok := address.(*net.IPNet); ok && !ipnet.IP.IsLoopback() {
+			if ipnet.IP.To4() != nil {
+				return ipnet.IP.String()
+			}
+		}
+	}
+	return ""
 }
 
 func (app *Application) discoveryHeartBeat() {
