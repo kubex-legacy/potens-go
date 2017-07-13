@@ -9,6 +9,7 @@ import (
 	"strconv"
 	"github.com/satori/go.uuid"
 	"go.uber.org/zap"
+	"strings"
 )
 
 //NewApplication creates an instance of your application, name will be converted to upper and _
@@ -75,9 +76,18 @@ func makeApp(name string) (*Application) {
 }
 
 func (app *Application) relPath(file string) string {
-	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
-	if err != nil {
-		app.Log().Fatal(err.Error())
+	// get executable path
+	rootPath, err := os.Executable()
+	app.FatalErr(err)
+	// if executable is in TempDir use getwd instead (go run)
+	if strings.HasPrefix(rootPath, os.TempDir()) {
+		rootPath, err = os.Getwd()
+		app.FatalErr(err)
+	} else {
+		rootPath = filepath.Dir(rootPath)
 	}
+
+	dir, err := filepath.Abs(rootPath)
+	app.FatalErr(err)
 	return path.Join(dir, file)
 }
