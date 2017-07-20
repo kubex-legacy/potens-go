@@ -1,19 +1,19 @@
-hash: d578ec3076c411281bb5de97d3e690f54f0361f40b0cbbb29a8e1a1e23313303
-updated: 2017-06-12T14:23:55.368470599+01:00
+hash: 09acb3c2c9cd9731b53c42124120f8a9cbb8a8890b920ee2f1f3c18e6af47d55
+updated: 2017-07-20T12:49:11.475655402+01:00
 imports:
 - name: github.com/cubex/cubeutil-go
   version: 1c6c49c2c91d3eb05a6ae48f8886c6d61a01d426
-- name: github.com/cubex/portcullis-go
-  version: 91e0fb9b734ef1790e898493503c8e0fd91555f6
-  subpackages:
-  - keys
 - name: github.com/golang/protobuf
-  version: 5a0f697c9ed9d68fef0116532c6e05cfeae00e55
+  version: 0a4f71a498b7c4812f64969510bcb4eca251e33a
   subpackages:
   - proto
   - ptypes/any
+- name: github.com/kubex/portcullis-go
+  version: a36abf4b3a1b34b33d5416797771396a6ff874ec
+  subpackages:
+  - keys
 - name: github.com/kubex/proto-go
-  version: 01f254d6d3a5819683e3266cb2f576b1435d2b16
+  version: 0acde5395c2566574a756f215f1f6601ad2c76bb
   subpackages:
   - application
   - discovery
@@ -32,7 +32,7 @@ imports:
   - internal/multierror
   - zapcore
 - name: golang.org/x/net
-  version: 1a68b1313cf4ad7778376e82641197b60c02f65c
+  version: 02ac38e2528ff4adea90f184d71a3faa04b4b1b0
   subpackages:
   - context
   - http2
@@ -42,18 +42,18 @@ imports:
   - lex/httplex
   - trace
 - name: golang.org/x/text
-  version: 210eee5cf7323015d097341bcf7166130d001cd8
+  version: 836efe42bb4aa16aaa17b9c155d8813d336ed720
   subpackages:
   - secure/bidirule
   - transform
   - unicode/bidi
   - unicode/norm
 - name: google.golang.org/genproto
-  version: aa2eb687b4d3e17154372564ad8d6bf11c3cf21f
+  version: b0a3dcfcd1a9bd48e63634bd8802960804cf8315
   subpackages:
   - googleapis/rpc/status
 - name: google.golang.org/grpc
-  version: d8960bd63c6743defa6d54926e5edfa8e4a28e43
+  version: b15215fb911b24a5d61d57feec4233d610530464
   subpackages:
   - codes
   - credentials
@@ -69,5 +69,5 @@ imports:
   - tap
   - transport
 - name: gopkg.in/yaml.v2
-  version: cd8b52f8269e0feb286dfeef29f8fe4d5b397e0b
+  version: 3b4ad1db5b2a649883ff3782f5f9f6fb52be71af
 testImports: []

@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/cubex/portcullis-go/keys"
+	"github.com/kubex/portcullis-go/keys"
 	"go.uber.org/zap"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
