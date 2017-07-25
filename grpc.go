@@ -45,8 +45,8 @@ func (app *Application) CreateServer() error {
 	return nil
 }
 
-//GetServer returns the grpc server
-func (app *Application) GetServer() *grpc.Server {
+//GetGrpcServer returns the grpc server
+func (app *Application) GetGrpcServer() *grpc.Server {
 	return app.server
 }
 
