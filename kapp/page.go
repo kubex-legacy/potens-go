@@ -13,10 +13,10 @@ type AppPage struct {
 }
 
 func (p *AppPage) NewRoute(path string) *AppRoute {
-	return p.route.parent.NewRoute(path)
+	return p.route.parent.newRoute(path)
 }
 func (p *AppPage) SubPage(tpl string, f func(ctx context.Context, in *application.HTTPRequest) (*application.HTTPResponse, error)) *AppPage {
 	spRoute := p.NewRoute(tpl)
-	spRoute.httpHandler = f
+	spRoute.handler = f
 	return p
 }
