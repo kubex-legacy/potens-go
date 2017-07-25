@@ -47,11 +47,10 @@ func (app *Application) RegisterWithDiscovery(hostname string, port string) erro
 
 	app.Log().Debug("Opened Connection to Discovery")
 	version := os.Getenv(app.ServiceKey() + EnvServiceVersionSuffix)
-	app.appVersion = discovery.AppVersion_STABLE
 	if version != "" {
-		v, ok := discovery.AppVersion_value[version]
+		v, ok := discovery.AppRelease_value[version]
 		if ok {
-			app.appVersion = discovery.AppVersion(v)
+			app.appRelease = discovery.AppRelease(v)
 		}
 	}
 
@@ -63,7 +62,7 @@ func (app *Application) RegisterWithDiscovery(hostname string, port string) erro
 		AppId:        app.GlobalAppID(),
 		InstanceUuid: app.instanceID,
 		ServiceHost:  hostname,
-		Version:      app.appVersion,
+		Release:      app.appRelease,
 		ServicePort:  int32(portInt),
 	})
 	if err != nil {
@@ -110,7 +109,7 @@ func (app *Application) discoveryHeartBeat() {
 		_, err := app.services.discoveryClient.HeartBeat(tCtx, &discovery.HeartBeatRequest{
 			AppId:        app.GlobalAppID(),
 			InstanceUuid: app.instanceID,
-			Version:      app.appVersion,
+			Release:      app.appRelease,
 		})
 		if err != nil {
 			if !strings.Contains(err.Error(), "unregistered") {
@@ -141,7 +140,7 @@ func (app *Application) DiscoveryOnline() error {
 	statusResult, err := app.services.discoveryClient.Status(tCtx, &discovery.StatusRequest{
 		AppId:        app.GlobalAppID(),
 		InstanceUuid: app.instanceID,
-		Version:      app.appVersion,
+		Release:      app.appRelease,
 		Status:       discovery.ServiceStatus_ONLINE,
 		Target:       discovery.StatusTarget_BOTH,
 	})
@@ -170,7 +169,7 @@ func (app *Application) DiscoveryOffline() error {
 	statusResult, err := app.services.discoveryClient.Status(tCtx, &discovery.StatusRequest{
 		AppId:        app.GlobalAppID(),
 		InstanceUuid: app.instanceID,
-		Version:      app.appVersion,
+		Release:      app.appRelease,
 		Status:       discovery.ServiceStatus_OFFLINE,
 		Target:       discovery.StatusTarget_INSTANCE,
 	})

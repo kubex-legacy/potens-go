@@ -5,7 +5,7 @@ import (
 )
 
 func quick() {
-	app := potens.QuickStartApp("Quick Service", nil, nil)
+	app := potens.QuickStartApp("Quick Service")
 	run(app)
 }
 

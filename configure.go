@@ -8,6 +8,7 @@ import (
 
 	"github.com/kubex/potens-go/definition"
 	"github.com/kubex/potens-go/identity"
+	"github.com/kubex/proto-go/discovery"
 )
 
 //SetIdentity Set your identity on the application
@@ -71,6 +72,21 @@ func (app *Application) SetDefinition(def *definition.AppDefinition) error {
 
 	if !app.canBecomeGlobalAppID(def.GlobalAppID()) {
 		return errors.New("The App ID specified in your definition does not match your identity")
+	}
+
+	switch def.Release {
+	case definition.AppReleaseStable:
+		app.appRelease = discovery.AppRelease_STABLE
+		break
+	case definition.AppReleaseBeta:
+		app.appRelease = discovery.AppRelease_BETA
+		break
+	case definition.AppReleaseAlpha:
+		app.appRelease = discovery.AppRelease_ALPHA
+		break
+	case definition.AppReleasePreAlpha:
+		app.appRelease = discovery.AppRelease_PRE_ALPHA
+		break
 	}
 
 	app.definition = def

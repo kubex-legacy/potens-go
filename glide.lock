@@ -1,5 +1,5 @@
 hash: 09acb3c2c9cd9731b53c42124120f8a9cbb8a8890b920ee2f1f3c18e6af47d55
-updated: 2017-07-20T12:49:11.475655402+01:00
+updated: 2017-07-25T20:09:22.168273906+01:00
 imports:
 - name: github.com/cubex/cubeutil-go
   version: 1c6c49c2c91d3eb05a6ae48f8886c6d61a01d426
@@ -9,11 +9,11 @@ imports:
   - proto
   - ptypes/any
 - name: github.com/kubex/portcullis-go
-  version: a36abf4b3a1b34b33d5416797771396a6ff874ec
+  version: 2a795162b8741f4cd24f843288bcd980d8af2a19
   subpackages:
   - keys
 - name: github.com/kubex/proto-go
-  version: 0acde5395c2566574a756f215f1f6601ad2c76bb
+  version: ed2bc65a4d8abc38605ecd7a469eb86b4d407120
   subpackages:
   - application
   - discovery
@@ -32,7 +32,7 @@ imports:
   - internal/multierror
   - zapcore
 - name: golang.org/x/net
-  version: 02ac38e2528ff4adea90f184d71a3faa04b4b1b0
+  version: ab5485076ff3407ad2d02db054635913f017b0ed
   subpackages:
   - context
   - http2
@@ -69,5 +69,5 @@ imports:
   - tap
   - transport
 - name: gopkg.in/yaml.v2
-  version: 3b4ad1db5b2a649883ff3782f5f9f6fb52be71af
+  version: 25c4ec802a7d637f88d584ab26798e94ad14c13b
 testImports: []

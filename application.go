@@ -29,7 +29,7 @@ type Application struct {
 	/** Definition **/
 	Name       string
 	definition *definition.AppDefinition
-	appVersion discovery.AppVersion
+	appRelease discovery.AppRelease
 
 	/** Identity **/
 	identity *identity.AppIdentity
