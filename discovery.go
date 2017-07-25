@@ -78,6 +78,7 @@ func (app *Application) RegisterWithDiscovery(hostname string, port string) erro
 
 	app.services.discoveryHost = hostname
 	app.services.discoveryPort = port
+	app.services.discoveryRegistered = true
 
 	return nil
 }
@@ -123,6 +124,14 @@ func (app *Application) discoveryHeartBeat() {
 }
 
 func (app *Application) DiscoveryOnline() error {
+
+	if !app.services.discoveryRegistered {
+		regErr := app.RegisterWithDiscovery("", "")
+		if regErr != nil {
+			return regErr
+		}
+	}
+
 	err := app.connectToDiscovery()
 	if err != nil {
 		return err

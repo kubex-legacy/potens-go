@@ -45,6 +45,7 @@ type serviceCache struct {
 	discoveryClient discovery.DiscoveryClient
 	discoveryHost   string
 	discoveryPort   string
+	discoveryRegistered bool
 	socketHandler   *socketHandler
 }
 
