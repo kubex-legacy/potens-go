@@ -5,7 +5,11 @@ import (
 	"github.com/kubex/potens-go/identity"
 )
 
-func QuickStartApp(name string, ident *identity.AppIdentity, def *definition.AppDefinition) (*Application) {
+func QuickStartApp(name string) *Application {
+	return StartApp(name, nil, nil)
+}
+
+func StartApp(name string, ident *identity.AppIdentity, def *definition.AppDefinition) *Application {
 	app := NewApplication(name)
 	app.Log().Info("Starting Application " + name)
 	app.FatalErr(app.SetIdentity(ident))
