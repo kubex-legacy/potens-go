@@ -13,6 +13,7 @@ import (
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
 	"github.com/kubex/potens-go/kapp"
+	"github.com/kubex/proto-go/application"
 )
 
 //Application Helper struct for your application
@@ -23,6 +24,7 @@ type Application struct {
 	instanceID    string
 	consoleDomain string
 	currentStatus discovery.ServiceStatus
+	appServer     *kapp.ApplicationServer
 
 	/** Definition **/
 	Name       string
@@ -102,6 +104,15 @@ func (app *Application) ServiceKey() string {
 	return strings.ToUpper(strings.Replace(regexp.MustCompile("[^A-Za-z0-9\\-_]").ReplaceAllString(app.Name, ""), "-", "_", -1))
 }
 
-func (app *Application) NewAppServer() *kapp.ApplicationServer {
-	return kapp.New()
+//AppServer grpc application server, add routing and functionality for your app on this
+func (app *Application) AppServer() *kapp.ApplicationServer {
+	if app.appServer == nil {
+		app.appServer = kapp.New()
+	}
+	return app.appServer
+}
+
+//RegisterAsAppServer listen to requests as a kubex application
+func (app *Application) RegisterAsAppServer() {
+	application.RegisterApplicationServer(app.GetGrpcServer(), app.AppServer())
 }
