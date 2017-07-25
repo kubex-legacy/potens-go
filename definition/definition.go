@@ -13,7 +13,7 @@ type AppDefinition struct {
 	Installable               bool
 	Auth                      AuthConfig
 	ConfigVersion             float32 `yaml:"config_version"`
-	Version                   float32
+	Release                   AppRelease
 	VendorID                  string `yaml:"vendor_id"`
 	TrustedVendor             bool
 	AppID                     string `yaml:"app_id"`
