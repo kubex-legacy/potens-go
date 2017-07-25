@@ -116,3 +116,12 @@ func (app *Application) AppServer() *kapp.ApplicationServer {
 func (app *Application) RegisterAsAppServer() {
 	application.RegisterApplicationServer(app.GetGrpcServer(), app.AppServer())
 }
+
+//ExposeAndServe DiscoveryOnline && Serve
+func (app *Application) ExposeAndServe() error {
+	discoveryErr := app.DiscoveryOnline()
+	if discoveryErr != nil {
+		return discoveryErr
+	}
+	return app.Serve()
+}
