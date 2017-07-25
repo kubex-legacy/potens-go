@@ -12,6 +12,7 @@ import (
 	"github.com/kubex/proto-go/discovery"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
+	"github.com/kubex/potens-go/kapp"
 )
 
 //Application Helper struct for your application
@@ -42,11 +43,11 @@ type Application struct {
 }
 
 type serviceCache struct {
-	discoveryClient discovery.DiscoveryClient
-	discoveryHost   string
-	discoveryPort   string
+	discoveryClient     discovery.DiscoveryClient
+	discoveryHost       string
+	discoveryPort       string
 	discoveryRegistered bool
-	socketHandler   *socketHandler
+	socketHandler       *socketHandler
 }
 
 //FatalErr If an error is provided, Log().Fatal()
@@ -99,4 +100,8 @@ func (app *Application) Log() *zap.Logger {
 //ServiceKey returns a key that can be used to pre-fix environment variables
 func (app *Application) ServiceKey() string {
 	return strings.ToUpper(strings.Replace(regexp.MustCompile("[^A-Za-z0-9\\-_]").ReplaceAllString(app.Name, ""), "-", "_", -1))
+}
+
+func (app *Application) NewAppServer() *kapp.ApplicationServer {
+	return kapp.New()
 }
