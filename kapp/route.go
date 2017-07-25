@@ -37,7 +37,9 @@ func (r *AppRoute) matchPath(path string) bool {
 func (r *AppRoute) matchMethod(method string) bool {
 	if len(r.methods) > 0 {
 		for _, meth := range r.methods {
-			strings.EqualFold(meth, method)
+			if strings.EqualFold(meth, method) {
+				return true
+			}
 		}
 		return false
 	}
