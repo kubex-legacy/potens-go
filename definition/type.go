@@ -14,6 +14,9 @@ const (
 	// AppTypeUser Standard User Application (Sidebar)
 	AppTypeUser AppType = "kubex.application.user"
 
-	//AppTypeService Service Only
+	//AppTypeGroup App Group
+	AppTypeGroup AppType = "kubex.group"
+
+	//AppTypeService Service Only - internal only
 	AppTypeService AppType = "kubex.service"
 )
