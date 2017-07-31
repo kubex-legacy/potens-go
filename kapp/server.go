@@ -13,7 +13,12 @@ type ApplicationServer struct {
 }
 
 func New() *ApplicationServer {
-	return &ApplicationServer{namedRoutes: make(map[string]*AppRoute), routes: make([]*AppRoute, 0)}
+	return &ApplicationServer{
+		namedRoutes:   make(map[string]*AppRoute),
+		routes:        make([]*AppRoute, 0),
+		socketActions: make(map[application.SocketAction]func(ctx context.Context, in *application.SocketRequest) (*application.HTTPResponse, error), 0),
+		modifyActions: make(map[application.ProjectModifyRequest_ModifyMode]func(ctx context.Context, distributorID, projectID string, data map[string]string) (*application.ProjectModifyResponse, error), 0),
+	}
 }
 
 func (s *ApplicationServer) newRoute(path string) *AppRoute {
