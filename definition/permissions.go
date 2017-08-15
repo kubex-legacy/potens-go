@@ -1,13 +1,10 @@
 package definition
 
-import (
-	"github.com/kubex/potens-go/i18n"
-)
+import "github.com/kubex/potens-go/i18n"
 
+// AppPermission permissions utilised by your application
 type AppPermission struct {
-	VendorID string `yaml:"vendor"`
-	AppID    string `yaml:"app"`
-	Rpc      string
+	Scope    AppScope
 	Required bool
-	Reason   i18n.Translations
+	Reason   i18n.Translations `json:",omitempty"`
 }

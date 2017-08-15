@@ -10,5 +10,6 @@ type AppQueue struct {
 	Name  i18n.Translations
 	Icon  string
 	Path  string
-	Roles []AppRole
+	Roles       []AppScope
+	Permissions []AppScope
 }

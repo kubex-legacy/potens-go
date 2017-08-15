@@ -8,14 +8,15 @@ type DashboardPanel struct {
 	Description i18n.Translations
 	Path        string
 	Icon        string
-	Roles       []AppRole
+	Roles       []AppScope
 	Actions     []DashboardPanelAction
 }
 
 type DashboardPanelAction struct {
-	ID    string
-	Title i18n.Translations
-	Path  string
-	Icon  string
-	Roles []AppRole
+	ID          string
+	Title       i18n.Translations
+	Path        string
+	Icon        string
+	Roles       []AppScope
+	Permissions []AppScope
 }

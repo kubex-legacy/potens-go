@@ -12,6 +12,8 @@ Entity IDs will be globally found as vendor-id/app-id/entity-id
 type AppEntity struct {
 	//ID app specific ID for this entity e.g. ticket
 	ID string
+	//Type 2 character entity type
+	Type string
 	//Name e.g. Ticket
 	Name i18n.Translations
 	//Plural e.g. Tickets
@@ -31,6 +33,6 @@ type Edge struct {
 	BiDirectional bool     `yaml:"bi_direction"` //Stored the reverse edge
 	Meta          []string                       //e.g. information about this edge
 	Label         string                         // %src% is a friend of %dst%
-	Restricted    bool
-	Restrictions  []string //Format can be [id] or [app-id/id] where app-id must be for the same vendor
+	Strict        bool                           //Edges should be locked into the restrictions only
+	Restrictions  []string                       //Format can be [id] or [app-id/id] where app-id must be for the same vendor
 }

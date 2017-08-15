@@ -6,9 +6,11 @@ type AppAle struct {
 	ID          string
 	Name        i18n.Translations
 	Description i18n.Translations
-	Inputs      map[string]DataItem
-	Outputs     map[string]DataItem
+	Inputs      []DataItem
+	Outputs     []DataItem
 	Endpoint    EndpointDefinition
+	Roles       []AppScope
+	Permissions []AppScope
 }
 
 // EndpointType - Type of API Call

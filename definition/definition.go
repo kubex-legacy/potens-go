@@ -8,43 +8,57 @@ import (
 
 // AppDefinition Application Definition
 type AppDefinition struct {
-	Type                      AppType
-	UIMode                    UIMode `yaml:"ui_mode"`
-	Installable               bool
-	Auth                      AuthConfig
-	ConfigVersion             float32 `yaml:"config_version"`
-	Release                   AppRelease
-	VendorID                  string `yaml:"vendor_id"`
-	TrustedVendor             bool
-	AppID                     string `yaml:"app_id"`
-	GroupID                   string `yaml:"group_id"`
-	Category                  string
-	Priority                  int32
-	Name                      i18n.Translations
-	Description               i18n.Translations
-	Icon                      string
-	Color                     AppColor
+	Type          AppType
+	UIMode        UIMode `yaml:"ui_mode"`
+	Installable   bool
+	ConfigVersion float32 `yaml:"config_version"`
+
+	Release  AppRelease
+	VendorID string `yaml:"vendor_id"`
+	AppID    string `yaml:"app_id"`
+	GroupID  string `yaml:"group_id"`
+	Category string
+	Priority int32
+
+	//Dependencies GAIDs that this app requires
+	Dependencies []string
+
+	Name        i18n.Translations
+	Description i18n.Translations
+	Icon        string
+	Color       AppColor
+
+	Navigation []AppNavigation
+	Auth       AuthConfig
+
+	Entities []AppEntity
+	//EntityVendorKey 3 Character Vendor Key
+	EntityVendorKey string `yaml:"entity_vendor_key"`
+	//EntityAppKey 2 Chatacter App Key
+	EntityAppKey string `yaml:"entity_app_key"`
+
+	QuickActions    []AppQuickAction  `yaml:"quick_actions"`
+	SearchActions   []AppSearchAction `yaml:"search_actions"`
+	Queues          []AppQueue
+	DashboardPanels []DashboardPanel`yaml:"dashboard_panels"`
+
 	AdvancedNotificationsPath string `yaml:"advanced_notifications_path"`
-	AdvancedConfigPath        string `yaml:"advanced_config_path"`
-	Navigation                []AppNavigation
-	Entities                  []AppEntity
-	QuickActions              []AppQuickAction  `yaml:"quick_actions"`
-	SearchActions             []AppSearchAction `yaml:"search_actions"`
-	Queues                    []AppQueue
-	DashboardPanels           []DashboardPanel`yaml:"dashboard_panels"`
 	Notifications             []AppNotification
-	Roles                     []AppRole
-	Config                    []AppConfig
-	Rpcs                      []Rpc
-	Permissions               []AppPermission
+
+	Roles              []AppScope
+	Permissions        []AppScope
+	UtilisePermissions []AppPermission `yaml:"utilise_permissions"`
+
+	Integrations AppIntegrations
+
+	AdvancedConfigPath string `yaml:"advanced_config_path"`
+	Config             []AppConfig
 
 	Actions []AppAle
 	Lookups []AppAle
 	Events  []AppAle
 
-	Integrations AppIntegrations
-	//Dependencies GAIDs that this app requires
-	Dependencies []string
+	TrustedVendor bool
 }
 
 func New() AppDefinition {

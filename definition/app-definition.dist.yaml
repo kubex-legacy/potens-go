@@ -13,7 +13,7 @@ config_version: 1.0
 #######################
 
 #The version of your application
-version: 1.0
+release: stable
 
 #Your vendor ID
 vendor_id: vendor-id
@@ -22,7 +22,7 @@ vendor_id: vendor-id
 app_id: app-id
 
 #The group this app belongs to (used for micro apps)
-group:
+group_id:
 
 #Category to place this app in
 category: unknown
@@ -73,11 +73,29 @@ navigation:
       - id: administrator
 
 #######################
+#         Auth        #
+#######################
+auth:
+  type: apiKey
+  parameters:
+    - id: api-key
+      key: apikey
+      type: password
+      required: true
+      name:
+        en: API Key
+      description:
+        en: API Key From your control panel
+      location: header
+
+
+#######################
 # Entity Information  #
 #######################
 
 entities:
   - id: customer
+    type: CU
     #Name of the entity
     name:
       en: Customer
@@ -97,6 +115,10 @@ entities:
         meta:
           - where-met
           - found-by
+        restrictions:
+          - customer
+          - same-vendor-app-id/person
+          - vendor/app/place
 
 #######################
 #    Quick Actions    #
@@ -119,6 +141,8 @@ quick_actions:
     roles:
       - id: //customer-manager
       - id: administrator
+    permissions:
+    - id: //create-customer
 
 #######################
 #   Search  Actions   #
@@ -149,6 +173,8 @@ search_actions:
     roles:
       - id: //customer-manager
       - id: administrator
+    permissions:
+      - id: //view
 
 #######################
 #       Queues        #
@@ -168,6 +194,8 @@ queues:
     #Restrict this action to specific roles, leave blank to remove restrictions
     roles:
       - id: //customer-manager
+    permissions:
+      - id: //view-pending
 
 #######################
 #  Dashboard Panels   #
@@ -189,6 +217,8 @@ dashboard_panels:
         icon: device:airplanemode-active
         roles:
           - id: everyone
+        permissions:
+          - id: //view-maps
       - id: view-news
         title:
           en: Read All News
@@ -196,6 +226,8 @@ dashboard_panels:
         icon: device:brightness-high
         roles:
           - id: //customer-manager
+        permissions:
+          - id: //view-news
 
 #######################
 #    Notifications    #
@@ -236,10 +268,7 @@ notifications:
 #######################
 #        Roles        #
 #######################
-# Set all the roles which are utilised by this application
-
 roles:
-
     # ID for this role, should be specified as <vendor>/<app-id>/<role-id> (role ID unique to this app)
   - id: vendor/app-id/customer-manager
     #Name of this role
@@ -250,7 +279,11 @@ roles:
     description:
       en: An employee who managed customers
       fr: Un employé qui a réussi clients
+    permissions:
+      - id: view
+      - id: delete
 
+# Set all the roles which are utilised by this application
   # Can be shortened to //role-id for dynamic completion of vendor and app-id
   - id: //customer-manager
   #To use a vendor defined role, or a global role, simply specify its id
@@ -261,64 +294,25 @@ roles:
     # Global roles must be prefixed with a /
   - id: administrator
 
-
-#######################
-#         Auth        #
-#######################
-auth:
-  type: apiKey
-  parameters:
-    - id: api-key
-      key: apikey
-      type: password
-      required: true
-      name:
-        en: API Key
-      description:
-        en: API Key From your control panel
-      location: header
-
-#######################
-#        RPCs         #
-#######################
-# RPCs that can be exposed from the service, that can
-rpcs:
-  - method: Search
-    #Display name
-    name:
-      en: Search Something
-    #Restrict this action to specific roles, leave blank to remove restrictions
-    roles:
-      - id: //customer-manager
-    input:
-      - id: search-filter
-        key: filter
-        type: string
-        required: true
-        name:
-          en: Filter String
-        description:
-          en: API Key From your control panel
-    output:
-      - id: results
-        key: results
-        type: json
-        name:
-          en: Search Results
-
 #######################
 #     Permissions     #
 #######################
-# Permissions required, or requested on other applications
-
+# Permissions provided by this app
 permissions:
+  - id: view
+    name:
+      en: View Customers
+    description:
+      en: Ability to view customers
+  - id: delete
+    name:
+      en: Delete Customers
+    description:
+      en: Ability to delete customers
 
-    # Vendor ID for the App
-  - vendor: vendor
-    # App ID handling the RPC
-    app: appid
-    # Call you would like to make
-    rpc: Search
+# Permissions required, or requested on other applications
+utilise_permissions:
+  - id: vendor/appid/view
     #Required - if false, optional for the owner to approve
     required: true
     #Reason your app requires access to this call
@@ -341,7 +335,11 @@ integrations:
        vendor: vendor
        app: app
       #Path to request panel
-      path: customer/{fid}/panels/summary
+      path: customer/:fid/panels/summary
+      roles:
+        - id: //customer-manager
+      permissions:
+        - id: //view-news
   #Page Header Navigation Items
   header_menu_items:
       #ID for this menu item
@@ -351,9 +349,7 @@ integrations:
        path: customers/:fid
        vendor: vendor
       #Path to link to on click
-      path: customer/{fid}/billing
-      #Launch style (full, integrated)
-      mode: integrated
+      path: customer/:fid/billing
       #Text to display on menu
       title:
         en: Billing
@@ -362,6 +358,10 @@ integrations:
       description:
         en: Billing Information
         fr: détails de facturation
+      roles:
+        - id: //customer-manager
+      permissions:
+        - id: //view-news
   #Page Navigation Items
   page_menu_items:
       #ID for this menu item
@@ -370,9 +370,7 @@ integrations:
       hook:
        path: customers/:fid
       #Path to link to on click
-      path: customer/{fid}/billing
-      #Launch style (full, integrated)
-      mode: integrated
+      path: customer/:fid/billing
       #Text to display on menu
       title:
         en: Billing
@@ -381,6 +379,10 @@ integrations:
       description:
         en: Billing Information
         fr: détails de facturation
+      roles:
+        - id: //customer-manager
+      permissions:
+        - id: //view-news
   #Action buttons to show on the page (top) left bar
   page_actions:
       #ID for this action
@@ -391,7 +393,7 @@ integrations:
         vendor: vendor
         app: app
       #Path to link to on click
-      path: customer/{fid}/orders/create
+      path: customer/:fid/orders/create
       #Action text
       title:
         en: Create Order
@@ -400,10 +402,14 @@ integrations:
       description:
         en: Create a new order for this customer
         fr: Créer une nouvelle commande pour ce client
-      #Launch style (page, dialog, window, integrated)
+      #Launch style (dialog, window)
       mode: dialog
       #Icon to display
       icon: social:person-add
+      roles:
+        - id: //customer-manager
+      permissions:
+        - id: //view-news
 
   #Action buttons to show in the page header
   header_actions:
@@ -415,7 +421,7 @@ integrations:
        vendor: vendor
        app: app
       #Path to link to on click
-      path: customer/{fid}/orders/create
+      path: customer/:fid/orders/create
       #Action text
       title:
         en: Create Order
@@ -424,10 +430,14 @@ integrations:
       description:
         en: Create a new order for this customer
         fr: Créer une nouvelle commande pour ce client
-      #Launch style (page, dialog, window, integrated)
+      #Launch style (dialog, window)
       mode: dialog
       #Icon to display
       icon: social:person-add
+      roles:
+        - id: //customer-manager
+      permissions:
+        - id: //view-news
 
 #######################
 #    Configuration    #
@@ -507,3 +517,107 @@ config:
           Les utilisateurs ne seront autorisés à enregistrer à l'aide des adresses e-mail à l'un des domaines, et ne seront en mesure d'ajouter de nouvelles adresses électroniques pour ces domaines. Si vous configurez ce, elle implique {{require-mail de vérification}}.
           Vous devez omettre le @ de domaines. Notez que le nom de domaine doit correspondre exactement. Si vous autorisez yourcompany.com, qui permet joe@yourcompany.com mais rejette joe@mail.yourcompany.com."
     type: array:line
+
+
+#######################
+#        ALEs         #
+#######################
+# Actions / Lookups / Events
+actions:
+  - id: create-customer
+    name:
+      en: Create Customer
+    description:
+      en: Create a new customer
+    inputs:
+      - id: customer-alias
+        key: alias
+        type: string
+        required: true
+        name:
+          en: Customer Alias
+        description:
+          en: Your internal identifier for this customer
+        location: grpc
+    outputs:
+      - id: fid
+        key: fid
+        type: string
+        required: true
+        name:
+          en: Customer FID
+        description:
+          en: Unique ID within Kubex for this customer
+        location: grpc
+    endpoint:
+      type: grpc
+    roles:
+      - id: //customer-manager
+    permissions:
+      - id: //view-news
+
+lookups:
+  - id: create-customer
+    name:
+      en: Create Customer
+    description:
+      en: Create a new customer
+    inputs:
+      - id: customer-alias
+        key: alias
+        type: string
+        required: true
+        name:
+          en: Customer Alias
+        description:
+          en: Your internal identifier for this customer
+        location: grpc
+    outputs:
+      - id: fid
+        key: fid
+        type: string
+        required: true
+        name:
+          en: Customer FID
+        description:
+          en: Unique ID within Kubex for this customer
+        location: grpc
+    endpoint:
+      type: grpc
+    roles:
+      - id: //customer-manager
+    permissions:
+      - id: //view-news
+
+events:
+  - id: create-customer
+    name:
+      en: Create Customer
+    description:
+      en: Create a new customer
+    inputs:
+      - id: customer-alias
+        key: alias
+        type: string
+        required: true
+        name:
+          en: Customer Alias
+        description:
+          en: Your internal identifier for this customer
+        location: grpc
+    outputs:
+      - id: fid
+        key: fid
+        type: string
+        required: true
+        name:
+          en: Customer FID
+        description:
+          en: Unique ID within Kubex for this customer
+        location: grpc
+    endpoint:
+      type: grpc
+    roles:
+      - id: //customer-manager
+    permissions:
+      - id: //view-news

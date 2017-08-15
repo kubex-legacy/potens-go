@@ -28,6 +28,7 @@ const (
 	DataLocationBody        DataLocation = "body"
 	DataLocationPost        DataLocation = "post"
 	DataLocationPath        DataLocation = "path"
+	DataLocationGRPC        DataLocation = "grpc"
 )
 
 type DataItem struct {

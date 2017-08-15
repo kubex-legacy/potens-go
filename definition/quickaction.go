@@ -18,10 +18,11 @@ const (
 
 // AppQuickAction Quick Action provided by your app
 type AppQuickAction struct {
-	ID    string
-	Name  i18n.Translations
-	Icon  string
-	mode  QuickActionMode
-	Path  string
-	Roles []AppRole
+	ID          string
+	Name        i18n.Translations
+	Icon        string
+	mode        QuickActionMode
+	Path        string
+	Roles       []AppScope
+	Permissions []AppScope
 }

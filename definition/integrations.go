@@ -17,9 +17,11 @@ func (h *Hook) ToString() string {
 }
 
 type AppIntegrationPanel struct {
-	ID   string
-	Hook Hook
-	Path string
+	ID          string
+	Hook        Hook
+	Path        string
+	Roles       []AppScope
+	Permissions []AppScope
 }
 
 type AppIntegrationMenuItem struct {
@@ -29,6 +31,8 @@ type AppIntegrationMenuItem struct {
 	Icon        string
 	Title       i18n.Translations
 	Description i18n.Translations
+	Roles       []AppScope
+	Permissions []AppScope
 }
 
 // AppIntegrationActionMode Launch mode for a integration action
@@ -51,6 +55,8 @@ type AppIntegrationAction struct {
 	Mode        AppIntegrationActionMode
 	Title       i18n.Translations
 	Description i18n.Translations
+	Roles       []AppScope
+	Permissions []AppScope
 }
 
 type AppIntegrations struct {
