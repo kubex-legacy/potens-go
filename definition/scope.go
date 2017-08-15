@@ -74,7 +74,7 @@ func (d *AppDefinition) MakeScopeID(ID string) string {
 	return d.VendorID + "/" + d.AppID + "/" + ID
 }
 
-func (d *AppDefinition) isPermitted(auth portcullis.ReqInfo, roles, permissions []AppScope) bool {
+func (d *AppDefinition) IsPermitted(auth portcullis.ReqInfo, roles, permissions []AppScope) bool {
 	//Do roles or permissions means all users
 	if len(roles) == 0 && len(permissions) == 0 {
 		return true
