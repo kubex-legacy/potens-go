@@ -71,7 +71,8 @@ navigation:
     roles:
       - id: //customer-manager
       - id: administrator
-
+    permissions:
+    - id: //create-customer
 #######################
 #         Auth        #
 #######################
