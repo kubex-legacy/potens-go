@@ -57,3 +57,8 @@ func (scope *AppScope) IsBuiltIn() bool {
 func (scope *AppScope) IsSameVendor(appDef *AppDefinition) bool {
 	return scope.VendorID(appDef) == appDef.VendorID
 }
+
+//MakeScopeID creates a scope for the current vendor/app e.g. vendor/app/id
+func (d *AppDefinition) MakeScopeID(id string) string {
+	return d.VendorID + "/" + d.AppID + "/" + id
+}
