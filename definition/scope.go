@@ -21,9 +21,9 @@ func (scope *AppScope) VendorID(appDef *AppDefinition) string {
 	if scope.IsBuiltIn() {
 		return ""
 	}
-	scopeSplit := strings.SplitN(scope.ID, "/", 3)
-	if len(scopeSplit) == 3 && len(scopeSplit[0]) > 0 {
-		return scopeSplit[0]
+	scopeSplit := strings.SplitN(scope.ID, "/", 4)
+	if len(scopeSplit) == 4 && len(scopeSplit[1]) > 0 {
+		return scopeSplit[1]
 	}
 
 	return appDef.VendorID
@@ -34,23 +34,29 @@ func (scope *AppScope) AppID(appDef *AppDefinition) string {
 	if scope.IsBuiltIn() {
 		return ""
 	}
-	scopeSplit := strings.SplitN(scope.ID, "/", 3)
-	if len(scopeSplit) == 3 && len(scopeSplit[1]) > 0 {
-		return scopeSplit[1]
+	scopeSplit := strings.SplitN(scope.ID, "/", 4)
+	if len(scopeSplit) == 4 && len(scopeSplit[2]) > 0 {
+		return scopeSplit[2]
 	}
 
 	return appDef.AppID
 }
 
+// ProjectID Retrieves the project ID for this scope
+func (scope *AppScope) ProjectID() string {
+	scopeSplit := strings.SplitN(scope.ID, "/", 2)
+	return scopeSplit[0]
+}
+
 // ScopeID Retrieves the Scope ID for this scope
 func (scope *AppScope) ScopeID() string {
-	scopeSplit := strings.SplitN(scope.ID, "/", 3)
+	scopeSplit := strings.SplitN(scope.ID, "/", 4)
 	return scopeSplit[len(scopeSplit)-1]
 }
 
 // IsBuiltIn returns true for global scope, e.g. owner
 func (scope *AppScope) IsBuiltIn() bool {
-	return !strings.Contains(scope.ID, "/")
+	return strings.Count(scope.ID, "/") == 1
 }
 
 // IsSameVendor returns true if the vendor for the scope matches the vendor in the provided definition
@@ -59,6 +65,6 @@ func (scope *AppScope) IsSameVendor(appDef *AppDefinition) bool {
 }
 
 //MakeScopeID creates a scope for the current vendor/app e.g. vendor/app/id
-func (d *AppDefinition) MakeScopeID(id string) string {
-	return d.VendorID + "/" + d.AppID + "/" + id
+func (d *AppDefinition) MakeScopeID(ID string) string {
+	return d.VendorID + "/" + d.AppID + "/" + ID
 }
