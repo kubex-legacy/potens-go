@@ -48,8 +48,8 @@ func (scope *AppScope) ProjectID() string {
 	return scopeSplit[0]
 }
 
-// ScopeID Retrieves the Scope ID for this scope
-func (scope *AppScope) ScopeID() string {
+// ScopeKey Retrieves the Scope ID for this scope
+func (scope *AppScope) ScopeKey() string {
 	scopeSplit := strings.SplitN(scope.ID, "/", 4)
 	return scopeSplit[len(scopeSplit)-1]
 }
@@ -62,6 +62,10 @@ func (scope *AppScope) IsBuiltIn() bool {
 // IsSameVendor returns true if the vendor for the scope matches the vendor in the provided definition
 func (scope *AppScope) IsSameVendor(appDef *AppDefinition) bool {
 	return scope.VendorID(appDef) == appDef.VendorID
+}
+
+func (scope *AppScope) GenID(appDef *AppDefinition) string {
+	return strings.Join([]string{scope.VendorID(appDef), scope.AppID(appDef), scope.ScopeKey()}, "/")
 }
 
 //MakeScopeID creates a scope for the current vendor/app e.g. vendor/app/id
