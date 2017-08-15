@@ -9,6 +9,7 @@ type DashboardPanel struct {
 	Path        string
 	Icon        string
 	Roles       []AppScope
+	Permissions []AppScope
 	Actions     []DashboardPanelAction
 }
 
