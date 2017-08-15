@@ -3,6 +3,7 @@ package definition
 import (
 	"github.com/kubex/potens-go/i18n"
 	"strings"
+	"github.com/kubex/portcullis-go"
 )
 
 // AppScope scopes provided by your application
@@ -71,4 +72,32 @@ func (scope *AppScope) GenID(appDef *AppDefinition) string {
 //MakeScopeID creates a scope for the current vendor/app e.g. vendor/app/id
 func (d *AppDefinition) MakeScopeID(ID string) string {
 	return d.VendorID + "/" + d.AppID + "/" + ID
+}
+
+func (d *AppDefinition) isPermitted(auth portcullis.ReqInfo, roles, permissions []AppScope) bool {
+	//Do roles or permissions means all users
+	if len(roles) == 0 && len(permissions) == 0 {
+		return true
+	}
+
+	//Project Owners can do anything
+	if auth.HasRole(string(portcullis.RoleProjectOwner)) {
+		return true
+	}
+
+	//Check Permissions
+	for _, perm := range permissions {
+		if auth.HasPermission(perm.GenID(d)) {
+			return true
+		}
+	}
+
+	//Check Roles
+	for _, role := range roles {
+		if auth.HasRole(role.GenID(d)) {
+			return true
+		}
+	}
+
+	return false
 }
