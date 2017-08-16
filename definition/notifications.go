@@ -15,6 +15,7 @@ type AppNotification struct {
 	Roles       []AppScope
 	Permissions []AppScope
 	Attributes  []AppNotificationAttribute
+	Actions     []Action
 }
 
 // AppNotificationAttributeType Type of notification attribute
