@@ -89,6 +89,12 @@ func (app *Application) getEnvLocation(prefix string, service string) string {
 	service = strings.Replace(service, "-", "_", -1)
 	serviceHost := os.Getenv(strings.ToUpper(prefix+service) + EnvServiceHostSuffix)
 	servicePort := os.Getenv(strings.ToUpper(prefix+service) + EnvServicePortSuffix)
+	if servicePort == "" {
+		servicePort = os.Getenv(strings.ToUpper(prefix+service) + EnvServicePortSuffix + "_GRPC")
+	}
+	if servicePort == "" {
+		servicePort = os.Getenv(strings.ToUpper(prefix+service) + EnvServicePortSuffix + "_DEFAULTPORT")
+	}
 	if serviceHost+servicePort != "" {
 		return serviceHost + ":" + servicePort
 	}
