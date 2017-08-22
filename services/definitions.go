@@ -51,3 +51,7 @@ func Config() Service {
 func Credentials() Service {
 	return Service{key: "credentials"}
 }
+
+func EventPipe() Service {
+	return Service{key: "eventpipe"}
+}
