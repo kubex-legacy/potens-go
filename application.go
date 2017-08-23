@@ -14,6 +14,7 @@ import (
 	"google.golang.org/grpc"
 	"github.com/kubex/potens-go/kapp"
 	"github.com/kubex/proto-go/application"
+	"github.com/kubex/proto-go/eventpipe"
 )
 
 //Application Helper struct for your application
@@ -50,6 +51,7 @@ type serviceCache struct {
 	discoveryPort       string
 	discoveryRegistered bool
 	socketHandler       *socketHandler
+	eventPipeClient     eventpipe.EventPipeClient
 }
 
 //FatalErr If an error is provided, Log().Fatal()
