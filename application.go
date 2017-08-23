@@ -9,12 +9,12 @@ import (
 
 	"github.com/kubex/potens-go/definition"
 	"github.com/kubex/potens-go/identity"
-	"github.com/kubex/proto-go/discovery"
-	"go.uber.org/zap"
-	"google.golang.org/grpc"
 	"github.com/kubex/potens-go/kapp"
 	"github.com/kubex/proto-go/application"
+	"github.com/kubex/proto-go/discovery"
 	"github.com/kubex/proto-go/eventpipe"
+	"go.uber.org/zap"
+	"google.golang.org/grpc"
 )
 
 //Application Helper struct for your application
@@ -125,5 +125,7 @@ func (app *Application) ExposeAndServe() error {
 	if discoveryErr != nil {
 		return discoveryErr
 	}
-	return app.Serve()
+	err := app.Serve()
+	app.DiscoveryOffline()
+	return err
 }
