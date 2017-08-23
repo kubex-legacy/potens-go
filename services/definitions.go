@@ -55,3 +55,7 @@ func Credentials() Service {
 func EventPipe() Service {
 	return Service{key: "eventpipe"}
 }
+
+func Portcullis() Service {
+	return Service{key: "portcullis"}
+}
