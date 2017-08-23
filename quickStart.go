@@ -27,6 +27,7 @@ func QuickStartService(name string) *Application {
 
 func StartService(name string, ident *identity.AppIdentity, def *definition.AppDefinition) *Application {
 	app := NewService(name)
+	app.Log().Debug("Assuming service name " + app.ServiceKey())
 	app.Log().Info("Starting Service " + name)
 	app.FatalErr(app.SetIdentity(ident))
 	app.Log().Info("Processed Identity")
