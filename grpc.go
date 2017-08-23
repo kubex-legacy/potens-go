@@ -56,6 +56,8 @@ func (app *Application) Serve() error {
 		return err
 	}
 
+	app.Log().Debug("Serving", zap.Int("port", app.Port))
+
 	return app.server.Serve(lis)
 }
 
