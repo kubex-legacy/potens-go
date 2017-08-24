@@ -142,7 +142,7 @@ func (r *UserData) GlobalAppID() string {
 // HasRole check if the user has a specific role
 func (r *UserData) HasRole(checkRole string) bool {
 	for _, role := range r.Roles {
-		if role == r.ProjectID+"/"+checkRole {
+		if role == r.ProjectID+"|"+checkRole {
 			return true
 		}
 	}
@@ -152,7 +152,7 @@ func (r *UserData) HasRole(checkRole string) bool {
 // HasPermission check if the user has a specific permission
 func (r *UserData) HasPermission(checkPermission string) bool {
 	for _, permission := range r.Permissions {
-		if permission == r.ProjectID+"/"+checkPermission {
+		if permission == r.ProjectID+"|"+checkPermission {
 			return true
 		}
 	}
