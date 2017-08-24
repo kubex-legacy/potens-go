@@ -56,6 +56,11 @@ func SetCacheSeconds(response *application.HTTPResponse, Seconds int64) {
 	response.Headers["x-cache-seconds"] = &application.HTTPResponse_HTTPHeaderParameter{Values: []string{strconv.FormatInt(Seconds, 10)}}
 }
 
+//SetCachePublic set the response to cache in public caches
+func SetCachePublic(response *application.HTTPResponse) {
+	response.Headers["x-cache-scope"] = &application.HTTPResponse_HTTPHeaderParameter{Values: []string{"public"}}
+}
+
 // PageIntergrationType
 type PageIntergrationType string
 
