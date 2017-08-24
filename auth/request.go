@@ -151,15 +151,22 @@ func (r *UserData) HasRole(checkRole string) bool {
 
 // HasPermission check if the user has a specific permission
 func (r *UserData) HasPermission(checkPermission string) bool {
-	hasPermission := false
+	return *r.HasPermissionStrict(checkPermission, true)
+}
+
+func (r *UserData) HasPermissionStrict(checkPermission string, strict bool) *bool {
+	var hasPermission bool
+	if strict {
+		hasPermission = false
+	}
 	for _, permission := range r.Permissions {
 		if permission == r.ProjectID+"|"+checkPermission {
 			hasPermission = true
 		} else if permission == "!"+r.ProjectID+"|"+checkPermission {
-			return false
+			return &false
 		}
 	}
-	return hasPermission
+	return &hasPermission
 }
 
 // FromContext retrieves user info from given request context

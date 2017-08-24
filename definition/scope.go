@@ -87,8 +87,9 @@ func (d *AppDefinition) IsPermitted(auth auth.UserData, roles, permissions []App
 
 	//Check Permissions
 	for _, perm := range permissions {
-		if auth.HasPermission(perm.GenID(d)) {
-			return true
+		hasPerm := auth.HasPermissionStrict(perm.GenID(d), false)
+		if hasPerm != nil {
+			return *hasPerm
 		}
 	}
 
