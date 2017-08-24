@@ -3,6 +3,7 @@ package webui
 import (
 	"encoding/json"
 	"net/url"
+	"strconv"
 	"strings"
 
 	"github.com/kubex/potens-go/webui/breadcrumb"
@@ -48,6 +49,11 @@ func SetPageIcon(response *application.HTTPResponse, Icon string) {
 //SetPageFID set the FID for the entity being shown on the page
 func SetPageFID(response *application.HTTPResponse, FID string) {
 	response.Headers["x-cube-page-fid"] = &application.HTTPResponse_HTTPHeaderParameter{Values: []string{FID}}
+}
+
+//SetCacheSeconds set the response to cache for X seconds
+func SetCacheSeconds(response *application.HTTPResponse, Seconds int64) {
+	response.Headers["x-cache-seconds"] = &application.HTTPResponse_HTTPHeaderParameter{Values: []string{strconv.FormatInt(Seconds, 10)}}
 }
 
 // PageIntergrationType
