@@ -7,7 +7,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/kubex/portcullis-go/keys"
+	"github.com/kubex/potens-go/auth"
+
 	"go.uber.org/zap"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
@@ -27,8 +28,8 @@ func (app *Application) GrpcTimeoutContext(timeout time.Duration) (context.Conte
 // GrpcContext context to use when communicating with other services
 func (app *Application) GrpcContext(parent context.Context) context.Context {
 	md := metadata.Pairs(
-		keys.GetAppIDKey(), app.Definition().AppID,
-		keys.GetAppVendorKey(), app.Definition().VendorID,
+		auth.GetAppIDKey(), app.Definition().AppID,
+		auth.GetAppVendorKey(), app.Definition().VendorID,
 	)
 
 	if parentMd, hasParentMd := metadata.FromIncomingContext(parent); hasParentMd {
