@@ -17,5 +17,6 @@ func (app *Application) IsPermitted(user auth.UserData, roles, permissions []def
 }
 
 func (app *Application) MakeScope(scopeID string) string {
-	return definition.NewScope(scopeID).GenID(app.Definition())
+	scope := definition.NewScope(scopeID)
+	return scope.GenID(app.Definition())
 }

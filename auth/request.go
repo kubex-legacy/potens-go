@@ -163,7 +163,8 @@ func (r *UserData) HasPermissionStrict(checkPermission string, strict bool) *boo
 		if permission == r.ProjectID+"|"+checkPermission {
 			hasPermission = true
 		} else if permission == "!"+r.ProjectID+"|"+checkPermission {
-			return &false
+			hasPermission = false
+			return &hasPermission
 		}
 	}
 	return &hasPermission
