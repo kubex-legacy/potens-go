@@ -63,7 +63,7 @@ func SetCachePublic(response *application.HTTPResponse) {
 
 //SetCacheETag set the etag for the response
 func SetCacheETag(response *application.HTTPResponse, ETag string) {
-	response.Headers["x-cache-scope"] = &application.HTTPResponse_HTTPHeaderParameter{Values: []string{ETag}}
+	response.Headers["x-cache-etag"] = &application.HTTPResponse_HTTPHeaderParameter{Values: []string{ETag}}
 }
 
 // PageIntergrationType
