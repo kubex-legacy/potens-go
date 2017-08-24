@@ -74,20 +74,20 @@ func (d *AppDefinition) MakeScopeID(ID string) string {
 	return d.VendorID + "/" + d.AppID + "/" + ID
 }
 
-func (d *AppDefinition) IsPermitted(auth auth.UserData, roles, permissions []AppScope) bool {
+func (d *AppDefinition) IsPermitted(user auth.UserData, roles, permissions []AppScope) bool {
 	//Do roles or permissions means all users
 	if len(roles) == 0 && len(permissions) == 0 {
 		return true
 	}
 
 	//Project Owners can do anything
-	if auth.HasRole(string(auth.RoleProjectOwner)) {
+	if user.HasRole(string(auth.RoleProjectOwner)) {
 		return true
 	}
 
 	//Check Permissions
 	for _, perm := range permissions {
-		hasPerm := auth.HasPermissionStrict(perm.GenID(d), false)
+		hasPerm := user.HasPermissionStrict(perm.GenID(d), false)
 		if hasPerm != nil {
 			return *hasPerm
 		}
@@ -95,7 +95,7 @@ func (d *AppDefinition) IsPermitted(auth auth.UserData, roles, permissions []App
 
 	//Check Roles
 	for _, role := range roles {
-		if auth.HasRole(role.GenID(d)) {
+		if user.HasRole(role.GenID(d)) {
 			return true
 		}
 	}
