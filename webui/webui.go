@@ -10,6 +10,7 @@ import (
 	"github.com/kubex/proto-go/application"
 	"fmt"
 	"hash/crc32"
+	"net/http"
 )
 
 //CreateResponse creates a new initialised response
@@ -25,6 +26,13 @@ func CreateJsonResponse(content interface{}) *application.HTTPResponse {
 	response.ContentType = "application/json"
 	jsonContent, _ := json.Marshal(content)
 	response.Body = string(jsonContent)
+	return response
+}
+
+//CreateNotModifiedResponse Creates a new 304 response
+func CreateNotModifiedResponse() *application.HTTPResponse {
+	response := CreateResponse()
+	response.StatusCode = http.StatusNotModified
 	return response
 }
 
