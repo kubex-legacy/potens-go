@@ -12,11 +12,6 @@ func UserFromContext(ctx context.Context) auth.UserData {
 }
 
 //IsPermitted Check a users roles and permissions to see if they should have access
-func (app *Application) IsPermitted(user auth.UserData, roles, permissions []definition.AppScope) bool {
-	return app.Definition().IsPermitted(user, roles, permissions)
-}
-
-func (app *Application) MakeScope(scopeID string) string {
-	scope := definition.NewScope(scopeID)
-	return scope.GenID(app.Definition())
+func (app *Application) IsPermitted(user auth.UserData, scopes ...definition.AppScope) bool {
+	return app.Definition().IsPermitted(user, scopes...)
 }

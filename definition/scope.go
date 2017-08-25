@@ -6,15 +6,38 @@ import (
 	"github.com/kubex/potens-go/auth"
 )
 
+// ScopeType Scope Type
+type ScopeType string
+
+//Scope Types
+const (
+	//ScopeTypeRole Role
+	ScopeTypeRole ScopeType = "role"
+	//ScopeTypePermission Permission
+	ScopeTypePermission ScopeType = "perm"
+)
+
 // AppScope scopes provided by your application
 type AppScope struct {
 	ID          string
+	Type        ScopeType
 	Name        i18n.Translations `json:",omitempty"`
 	Description i18n.Translations `json:",omitempty"`
 }
 
+//NewScope Creates a new untyped scope
 func NewScope(scopeID string) AppScope {
 	return AppScope{ID: scopeID}
+}
+
+//NewPermission Creates a new permission scope
+func NewPermission(scopeID string) AppScope {
+	return AppScope{ID: scopeID, Type: ScopeTypePermission}
+}
+
+//NewRole Creates a new role scope
+func NewRole(scopeID string) AppScope {
+	return AppScope{ID: scopeID, Type: ScopeTypeRole}
 }
 
 // VendorID Retrieves the vendor ID for this scope, empty for a global scope
@@ -74,9 +97,9 @@ func (d *AppDefinition) MakeScopeID(ID string) string {
 	return d.VendorID + "/" + d.AppID + "/" + ID
 }
 
-func (d *AppDefinition) IsPermitted(user auth.UserData, roles, permissions []AppScope) bool {
+func (d *AppDefinition) IsPermitted(user auth.UserData, scopes ...AppScope) bool {
 	//Do roles or permissions means all users
-	if len(roles) == 0 && len(permissions) == 0 {
+	if len(scopes) == 0 {
 		return true
 	}
 
@@ -86,16 +109,18 @@ func (d *AppDefinition) IsPermitted(user auth.UserData, roles, permissions []App
 	}
 
 	//Check Permissions
-	for _, perm := range permissions {
-		hasPerm := user.HasPermissionStrict(perm.GenID(d), false)
-		if hasPerm != nil {
-			return *hasPerm
+	for _, perm := range scopes {
+		if perm.Type == ScopeTypePermission {
+			hasPerm := user.HasPermissionStrict(perm.GenID(d), false)
+			if hasPerm != nil {
+				return *hasPerm
+			}
 		}
 	}
 
 	//Check Roles
-	for _, role := range roles {
-		if user.HasRole(role.GenID(d)) {
+	for _, role := range scopes {
+		if role.Type == ScopeTypeRole && user.HasRole(role.GenID(d)) {
 			return true
 		}
 	}
