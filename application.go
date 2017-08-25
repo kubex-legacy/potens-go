@@ -115,8 +115,10 @@ func (app *Application) AppServer() *kapp.ApplicationServer {
 }
 
 //RegisterAsAppServer listen to requests as a kubex application
-func (app *Application) RegisterAsAppServer() {
-	application.RegisterApplicationServer(app.GetGrpcServer(), app.AppServer())
+func (app *Application) RegisterAsAppServer() *kapp.ApplicationServer {
+	srv := app.AppServer()
+	application.RegisterApplicationServer(app.GetGrpcServer(), srv)
+	return srv
 }
 
 //ExposeAndServe DiscoveryOnline && Serve
