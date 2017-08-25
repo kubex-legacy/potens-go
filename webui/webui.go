@@ -8,6 +8,8 @@ import (
 
 	"github.com/kubex/potens-go/webui/breadcrumb"
 	"github.com/kubex/proto-go/application"
+	"fmt"
+	"hash/crc32"
 )
 
 //CreateResponse creates a new initialised response
@@ -69,6 +71,11 @@ func SetCacheRevalidate(response *application.HTTPResponse) {
 //SetCacheETag set the etag for the response
 func SetCacheETag(response *application.HTTPResponse, ETag string) {
 	response.Headers["x-cache-etag"] = &application.HTTPResponse_HTTPHeaderParameter{Values: []string{ETag}}
+}
+
+func BuildETag(name string, data []byte) string {
+	crc := crc32.ChecksumIEEE(data)
+	return fmt.Sprintf(`"%s-%d-%08X"`, name, len(data), crc)
 }
 
 // PageIntergrationType
