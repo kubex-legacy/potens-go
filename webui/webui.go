@@ -61,6 +61,11 @@ func SetCachePublic(response *application.HTTPResponse) {
 	response.Headers["x-cache-scope"] = &application.HTTPResponse_HTTPHeaderParameter{Values: []string{"public"}}
 }
 
+//SetCacheRevalidate set the response to re-validate cache
+func SetCacheRevalidate(response *application.HTTPResponse) {
+	response.Headers["x-cache-revalidate"] = &application.HTTPResponse_HTTPHeaderParameter{Values: []string{"must-revalidate"}}
+}
+
 //SetCacheETag set the etag for the response
 func SetCacheETag(response *application.HTTPResponse, ETag string) {
 	response.Headers["x-cache-etag"] = &application.HTTPResponse_HTTPHeaderParameter{Values: []string{ETag}}
