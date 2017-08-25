@@ -40,6 +40,20 @@ func NewRole(scopeID string) AppScope {
 	return AppScope{ID: scopeID, Type: ScopeTypeRole}
 }
 
+//TypedScopes Combine scopes with types set
+func TypedScopes(roles, permissions []AppScope) []AppScope {
+	scopes := []AppScope{}
+	for _, role := range roles {
+		role.Type = ScopeTypeRole
+		scopes = append(scopes, role)
+	}
+	for _, perm := range permissions {
+		perm.Type = ScopeTypePermission
+		scopes = append(scopes, perm)
+	}
+	return scopes
+}
+
 // VendorID Retrieves the vendor ID for this scope, empty for a global scope
 func (scope *AppScope) VendorID(appDef *AppDefinition) string {
 	if scope.IsBuiltIn() {
