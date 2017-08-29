@@ -4,6 +4,7 @@ import (
 	"github.com/kubex/proto-go/application"
 	"golang.org/x/net/context"
 	"strings"
+	"regexp"
 )
 
 type AppRoute struct {
@@ -31,7 +32,11 @@ func (r *AppRoute) Match(in *application.HTTPRequest) bool {
 }
 
 func (r *AppRoute) matchPath(path string) bool {
-	return strings.HasPrefix(path, r.path)
+	re := regexp.MustCompile(":[a-z]+")
+	regexString := re.ReplaceAllString(r.path, "[^\\/]+")
+	rm := regexp.MustCompile(regexString)
+	match := rm.FindStringSubmatch(path)
+	return len(match) > 0
 }
 
 func (r *AppRoute) matchMethod(method string) bool {

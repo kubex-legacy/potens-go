@@ -10,14 +10,16 @@ import (
 func (s *ApplicationServer) HandleHTTPRequest(ctx context.Context, in *application.HTTPRequest) (*application.HTTPResponse, error) {
 	for _, route := range s.routes {
 		if route.Match(in) {
-			if route.page != nil && in.RequestType == application.HTTPRequest_PAGE_DEFINITION {
+			if in.RequestType == application.HTTPRequest_PAGE_DEFINITION && route.page != nil {
 				if route.page.definition != nil {
 					return route.page.definition(ctx, in)
 				}
-			} else if route.page != nil && in.RequestType == application.HTTPRequest_REQUEST {
-				return route.page.defaultPage(ctx, in)
-			} else if route.handler != nil && route.page == nil {
-				return route.handler(ctx, in)
+			} else if in.RequestType == application.HTTPRequest_REQUEST {
+				if route.page == nil {
+					return route.handler(ctx, in)
+				} else {
+					return route.page.defaultPage(ctx, in)
+				}
 			}
 		}
 	}
