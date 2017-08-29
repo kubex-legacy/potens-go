@@ -61,3 +61,35 @@ const (
 	//AppColorGrey grey
 	AppColorGrey AppColor = "grey"
 )
+
+//AppColors All Available App Colors
+var AppColors = []AppColor{
+	AppColorCubexCharcoal,
+	AppColorCubexTeal,
+	AppColorCubexGreen,
+	AppColorCubexYellow,
+	AppColorCubexOrange,
+	AppColorCubexRed,
+	AppColorCubexPink,
+	AppColorCubexPurple,
+	AppColorCubexBlue,
+	AppColorRed,
+	AppColorPink,
+	AppColorPurple,
+	AppColorDeepPurple,
+	AppColorIndigo,
+	AppColorBlue,
+	AppColorLightBlue,
+	AppColorCyan,
+	AppColorTeal,
+	AppColorGreen,
+	AppColorLightGreen,
+	AppColorLime,
+	AppColorYellow,
+	AppColorAmber,
+	AppColorOrange,
+	AppColorDeepOrange,
+	AppColorBrown,
+	AppColorBlueGrey,
+	AppColorGrey,
+}
