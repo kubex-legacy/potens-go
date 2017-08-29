@@ -1,45 +1,11 @@
 package webui
 
 import (
-	"encoding/json"
-	"net/url"
 	"strconv"
-	"strings"
-
-	"github.com/kubex/potens-go/webui/breadcrumb"
 	"github.com/kubex/proto-go/application"
 	"fmt"
 	"hash/crc32"
-	"net/http"
 )
-
-//CreateResponse creates a new initialised response
-func CreateResponse() *application.HTTPResponse {
-	response := &application.HTTPResponse{}
-	response.Headers = make(map[string]*application.HTTPResponse_HTTPHeaderParameter)
-	return response
-}
-
-//CreateJsonResponse Creates a new response
-func CreateJsonResponse(content interface{}) *application.HTTPResponse {
-	response := CreateResponse()
-	response.ContentType = "application/json"
-	jsonContent, _ := json.Marshal(content)
-	response.Body = string(jsonContent)
-	return response
-}
-
-//CreateNotModifiedResponse Creates a new 304 response
-func CreateNotModifiedResponse() *application.HTTPResponse {
-	response := CreateResponse()
-	response.StatusCode = http.StatusNotModified
-	return response
-}
-
-//SetBreadcrumb set the breadcrumb on the response
-func SetBreadcrumb(response *application.HTTPResponse, breadcrumb breadcrumb.Breadcrumb) {
-	response.Headers["x-cube-breadcrumb"] = &application.HTTPResponse_HTTPHeaderParameter{Values: []string{breadcrumb.Json()}}
-}
 
 //SetPageTitle set the page title on the response
 func SetPageTitle(response *application.HTTPResponse, PageTitle string) {
@@ -81,41 +47,8 @@ func SetCacheETag(response *application.HTTPResponse, ETag string) {
 	response.Headers["x-cache-etag"] = &application.HTTPResponse_HTTPHeaderParameter{Values: []string{ETag}}
 }
 
+//BuildETag Create an etag for caching
 func BuildETag(name string, data []byte) string {
 	crc := crc32.ChecksumIEEE(data)
 	return fmt.Sprintf(`"%s-%d-%08X"`, name, len(data), crc)
-}
-
-// PageIntergrationType
-type PageIntergrationType string
-
-//Page Intergration Types
-const (
-	// PageIntergrationTypeDefault Default
-	PageIntergrationTypeDefault PageIntergrationType = "default"
-	// PageIntergrationTypeNone None
-	PageIntergrationTypeNone PageIntergrationType = "none"
-)
-
-//SetPageIcon set the icon url/code on the response
-func SetPageIntegrations(response *application.HTTPResponse, IntegrationType PageIntergrationType) {
-	response.Headers["x-cube-integrations"] = &application.HTTPResponse_HTTPHeaderParameter{Values: []string{string(IntegrationType)}}
-}
-
-func GetUrl(request *application.HTTPRequest) *url.URL {
-	return &url.URL{
-		Scheme:     "https",
-		Host:       "apps.cubex.io",
-		Path:       request.Path,
-		RawPath:    request.Path,
-		ForceQuery: false,
-		RawQuery:   request.QueryString,
-	}
-}
-
-func GetParameter(params map[string]*application.HTTPRequest_HTTPParameter, key string) string {
-	if val, exists := params[key]; exists {
-		return strings.Join(val.Values, ", ")
-	}
-	return ""
 }
