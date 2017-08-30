@@ -52,3 +52,8 @@ func BuildETag(name string, data []byte) string {
 	crc := crc32.ChecksumIEEE(data)
 	return fmt.Sprintf(`"%s-%d-%08X"`, name, len(data), crc)
 }
+
+//SetTotalResultCount set the total number of matching results for a data request
+func SetTotalResultCount(response *application.HTTPResponse, Results int64) {
+	response.Headers["x-cube-total-results"] = &application.HTTPResponse_HTTPHeaderParameter{Values: []string{strconv.FormatInt(Results, 10)}}
+}
