@@ -172,7 +172,7 @@ func (r *UserData) HasPermissionStrict(checkPermission string, strict bool) *boo
 
 // FromContext retrieves user info from given request context
 func FromContext(ctx context.Context) UserData {
-	md, _ := metadata.FromContext(ctx)
+	md, _ := metadata.FromIncomingContext(ctx)
 	res := UserData{
 		ProjectID:   safeGetMetaValString(GetProjectKey(), md),
 		UserID:      safeGetMetaValString(GetUserIDKey(), md),
