@@ -33,9 +33,9 @@ func (app *Application) GrpcContext(parent context.Context) context.Context {
 	)
 
 	if parentMd, hasParentMd := metadata.FromIncomingContext(parent); hasParentMd {
-		return metadata.NewContext(parent, metadata.Join(md, parentMd))
+		return metadata.NewOutgoingContext(parent, metadata.Join(md, parentMd))
 	}
-	return metadata.NewContext(parent, md)
+	return metadata.NewOutgoingContext(parent, md)
 }
 
 // CreateServer creates a gRPC server with your tls certificates
