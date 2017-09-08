@@ -41,8 +41,9 @@ type Application struct {
 	logger *zap.Logger
 
 	/** gRPC **/
-	server   *grpc.Server
-	services *serviceCache
+	server         *grpc.Server
+	services       *serviceCache
+	logDiscoveryHB bool
 }
 
 type serviceCache struct {

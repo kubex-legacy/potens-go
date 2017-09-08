@@ -38,11 +38,12 @@ func NewService(name string) (*Application) {
 func makeApp(name string) (*Application) {
 	var err error
 	app := &Application{
-		services:      &serviceCache{},
-		Name:          name,
-		IP:            net.IPv4(127, 0, 0, 1),
-		Port:          KubexDefaultGRPCPort,
-		consoleDomain: KubexProductionConsoleDomain,
+		services:       &serviceCache{},
+		Name:           name,
+		IP:             net.IPv4(127, 0, 0, 1),
+		Port:           KubexDefaultGRPCPort,
+		consoleDomain:  KubexProductionConsoleDomain,
+		logDiscoveryHB: false,
 	}
 
 	app.instanceID = uuid.NewV4().String()

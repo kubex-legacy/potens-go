@@ -104,7 +104,9 @@ func (app *Application) discoveryHeartBeat() {
 		if app.currentStatus != discovery.ServiceStatus_ONLINE {
 			return
 		}
-		app.Log().Debug("Sending heartbeat to discovery")
+		if app.logDiscoveryHB {
+			app.Log().Debug("Sending heartbeat to discovery")
+		}
 		tCtx, _ := app.GrpcTimeoutContext(time.Second * 1)
 		_, err := app.services.discoveryClient.HeartBeat(tCtx, &discovery.HeartBeatRequest{
 			AppId:        app.GlobalAppID(),
