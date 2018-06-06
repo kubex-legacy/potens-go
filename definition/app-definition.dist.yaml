@@ -261,6 +261,10 @@ notifications:
       - name: externalReference
         #Type of value (string, boolean, integer, float)
         type: string
+        example_string: "USER-REF"
+        example_integer: 10
+        example_float: 1.5
+        example_boolean: true
     #Restrict this action to specific roles, leave blank to remove restrictions
     roles:
       - id: //customer-manager

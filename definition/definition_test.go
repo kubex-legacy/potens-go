@@ -100,5 +100,5 @@ func TestReadYaml(t *testing.T) {
 	}
 
 	jsonBytes, err := json.Marshal(def)
-	log.Print(string(jsonBytes))
+	log.Println(string(jsonBytes))
 }

@@ -36,4 +36,9 @@ const (
 type AppNotificationAttribute struct {
 	Name string
 	Type AppNotificationAttributeType
+
+	ExampleString  string  `yaml:"example_string"`
+	ExampleInteger int64   `yaml:"example_integer"`
+	ExampleFloat   float64 `yaml:"example_float"`
+	ExampleBoolean bool    `yaml:"example_boolean"`
 }
